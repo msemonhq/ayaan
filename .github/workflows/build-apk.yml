@@ -33,7 +33,7 @@ jobs:
 
       - name: Install Node Dependencies
         run: |
-          npm install
+          npm ci
 
       - name: Initialize & Sync Capacitor Android
         run: |
