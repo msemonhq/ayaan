@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0d0b26">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Ayaan - An Antigravity Spatial Memory & Working Memory Game for Young Astronauts">
+  <title>Ayaan - Antigravity Memory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Deep Cosmic Ambient Canvas & Particles -->
+  <canvas id="particleCanvas"></canvas>
+
+  <div id="gameApp">
+    <!-- Top HUD Navigation -->
+    <header class="hud-header">
+      <div class="hud-left">
+        <div class="avatar-badge" title="Astronaut Ayaan">
+          <span class="avatar-icon">🧑‍🚀</span>
+          <span class="player-name">Ayaan</span>
+        </div>
+        <div class="level-pill" id="levelPill">
+          <span class="level-label">LEVEL</span>
+          <span class="level-number" id="levelDisplay">1</span>
+        </div>
+      </div>
+
+      <div class="hud-center">
+        <!-- Sequence Progress Indicator Dots -->
+        <div class="sequence-tracker" id="sequenceTracker" aria-label="Sequence Progress">
+          <!-- Populated dynamically with glowing dots -->
+        </div>
+      </div>
+
+      <div class="hud-right">
+        <!-- Audio Mute / Unmute Toggle -->
+        <button id="soundToggleBtn" class="hud-btn" aria-label="Toggle Sound" title="Sound Toggle">
+          <span id="soundIcon">🔊</span>
+        </button>
+        <!-- Replay Sequence Cue Button (Neuro-friendly assistance) -->
+        <button id="hintBtn" class="hud-btn" aria-label="Replay Sequence Cue" title="Watch Sequence Again">
+          <span>👀</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Cognitive Feedback / Prompt Banner -->
+    <section class="prompt-section">
+      <div class="prompt-bubble" id="promptBubble">
+        <span class="prompt-icon" id="promptIcon">✨</span>
+        <span class="prompt-text" id="promptText">Get ready, Astronaut Ayaan!</span>
+      </div>
+    </section>
+
+    <!-- The Antigravity Chamber (Interactive Physics Stage) -->
+    <main class="chamber-container" id="chamber">
+      <!-- Zero-gravity floating objects are dynamically spawned and animated here -->
+      <div id="physicsWorld" class="physics-world" aria-live="polite"></div>
+    </main>
+
+    <!-- Bottom Status Bar -->
+    <footer class="hud-footer">
+      <div class="streak-counter">
+        <span class="streak-icon">⭐</span>
+        <span class="streak-label">Stars:</span>
+        <span class="streak-value" id="scoreDisplay">0</span>
+      </div>
+      <div class="level-title-tag" id="levelNameTag">Cadet Float</div>
+    </footer>
+  </div>
+
+  <!-- Start Game / Instructions Modal -->
+  <div class="modal-backdrop" id="startModal">
+    <div class="modal-card">
+      <div class="modal-hero-icon">🚀</div>
+      <h1 class="modal-title">Welcome, Ayaan!</h1>
+      <p class="modal-subtitle">Ready for your Antigravity Mission?</p>
+      
+      <div class="mission-rules">
+        <div class="rule-item">
+          <span class="rule-emoji">👀</span>
+          <p><strong>Watch:</strong> Remember the glowing space objects in order.</p>
+        </div>
+        <div class="rule-item">
+          <span class="rule-emoji">👆</span>
+          <p><strong>Tap:</strong> Touch them in the same order as they float in zero-g!</p>
+        </div>
+        <div class="rule-item">
+          <span class="rule-emoji">🌟</span>
+          <p><strong>Have Fun:</strong> No rush, no mistakes—just cosmic fun!</p>
+        </div>
+      </div>
+
+      <button id="startPlayBtn" class="primary-action-btn">
+        <span>Blast Off! 🚀</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Level Up Celebration Modal -->
+  <div class="modal-backdrop hidden" id="celebrationModal">
+    <div class="modal-card celebration-card">
+      <div class="celebration-badge">🏆</div>
+      <h2 class="modal-title" id="celebrationTitle">Super Space Explorer!</h2>
+      <p class="modal-subtitle" id="celebrationMessage">Ayaan mastered the sequence!</p>
+      
+      <div class="reward-stars" id="rewardStarsContainer">
+        <span class="reward-star">⭐</span>
+        <span class="reward-star">⭐</span>
+        <span class="reward-star">⭐</span>
+      </div>
+
+      <button id="nextLevelBtn" class="primary-action-btn celebration-btn">
+        <span>Next Cosmic Orbit 🛸</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Script logic -->
+  <script src="script.js"></script>
+</body>
+</html>
