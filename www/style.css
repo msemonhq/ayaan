@@ -1,7 +1,7 @@
 /* ==========================================================================
-   Ayaan - Antigravity Mobile Brain Exercise Game
+   Ayaan - Antigravity Mobile Brain Exercise Games
    Mobile-First Stylesheet & Zero-G Visual Effects
-   Optimized for 6-year-old motor skills & cognitive accessibility
+   Optimized for 6-Year-Old Motor Skills, Sensory Balance & Cognitive Growth
    ========================================================================== */
 
 :root {
@@ -27,7 +27,7 @@
   /* Typography */
   --font-primary: 'Fredoka', 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   
-  /* Touch Sizing - Extra large targets for developing motor coordination */
+  /* Touch Sizing - Extra large targets for developing motor coordination (≥ 88px) */
   --touch-target-size: 88px;
   --hud-height: 72px;
 }
@@ -55,6 +55,10 @@ html, body {
   line-height: 1.3;
 }
 
+.hidden {
+  display: none !important;
+}
+
 /* Background Cosmic Canvas */
 #particleCanvas {
   position: absolute;
@@ -76,11 +80,12 @@ html, body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-top: max(12px, env(safe-area-inset-top));
-  padding-bottom: max(12px, env(safe-area-inset-bottom));
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-bottom: max(10px, env(safe-area-inset-bottom));
   padding-left: max(12px, env(safe-area-inset-left));
   padding-right: max(12px, env(safe-area-inset-right));
   background: var(--bg-chamber-gradient);
+  gap: 8px;
 }
 
 /* --------------------------------------------------------------------------
@@ -91,13 +96,14 @@ html, body {
   align-items: center;
   justify-content: space-between;
   height: var(--hud-height);
-  padding: 4px 8px;
+  padding: 6px 10px;
   border-radius: 20px;
-  background: rgba(18, 14, 46, 0.65);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(18, 14, 46, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--chamber-border);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  flex-shrink: 0;
 }
 
 .hud-left {
@@ -127,6 +133,29 @@ html, body {
   letter-spacing: 0.5px;
 }
 
+/* Persistent Star Bank Badge */
+.star-bank-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 210, 51, 0.15);
+  border: 1px solid rgba(255, 210, 51, 0.4);
+  padding: 6px 10px;
+  border-radius: 999px;
+  box-shadow: 0 0 10px rgba(255, 210, 51, 0.2);
+}
+
+.star-bank-badge .star-icon {
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.star-bank-badge .star-total {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--star-gold);
+}
+
 .level-pill {
   display: flex;
   flex-direction: column;
@@ -134,15 +163,15 @@ html, body {
   justify-content: center;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 3px 10px;
+  padding: 3px 8px;
   border-radius: 12px;
 }
 
 .level-label {
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 700;
   color: #94a3b8;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
 
 .level-number {
@@ -152,13 +181,21 @@ html, body {
   line-height: 1;
 }
 
-/* Center Sequence Tracker (Neuro-supportive visual cues) */
+/* Center HUD Tracker */
 .hud-center {
   display: flex;
   align-items: center;
   justify-content: center;
   flex: 1;
   padding: 0 6px;
+}
+
+.hub-tracker-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #c4b5fd;
+  text-shadow: 0 0 8px rgba(196, 181, 253, 0.5);
 }
 
 .sequence-tracker {
@@ -219,26 +256,221 @@ html, body {
 }
 
 /* --------------------------------------------------------------------------
-   Prompt Banner (Dopamine Regulation & Clear Instructions)
+   VIEW 1: Mission Hub (Game Selection Screen)
    -------------------------------------------------------------------------- */
+.hub-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  padding: 4px 2px 10px 2px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.hub-header-card {
+  text-align: center;
+  background: rgba(25, 20, 60, 0.65);
+  border: 1.5px solid rgba(167, 139, 250, 0.3);
+  border-radius: 24px;
+  padding: 16px 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.hub-badge-icon {
+  font-size: 2.8rem;
+  margin-bottom: 4px;
+  animation: floatHero 2.5s ease-in-out infinite alternate;
+  filter: drop-shadow(0 4px 10px rgba(99, 102, 241, 0.5));
+}
+
+.hub-title {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+  margin-bottom: 2px;
+}
+
+.hub-subtitle {
+  font-size: 0.95rem;
+  color: #cbd5e1;
+}
+
+.mission-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Mission Card Component */
+.mission-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(24, 19, 58, 0.85);
+  border: 2px solid rgba(167, 139, 250, 0.35);
+  border-radius: 24px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+  min-height: 94px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.mission-card:active {
+  transform: scale(0.96);
+}
+
+.mission-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+}
+
+.card-memory::before { background: linear-gradient(to bottom, #8b5cf6, #d946ef); }
+.card-sorter::before { background: linear-gradient(to bottom, #06b6d4, #10b981); }
+.card-switcher::before { background: linear-gradient(to bottom, #f59e0b, #ec4899); }
+
+.card-memory:active {
+  border-color: #a78bfa;
+  box-shadow: 0 0 25px rgba(139, 92, 246, 0.4);
+}
+
+.card-sorter:active {
+  border-color: #22d3ee;
+  box-shadow: 0 0 25px rgba(6, 182, 212, 0.4);
+}
+
+.card-switcher:active {
+  border-color: #fbbf24;
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.4);
+}
+
+.mission-card-left {
+  flex-shrink: 0;
+}
+
+.mission-icon-wrap {
+  width: 62px;
+  height: 62px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+}
+
+.bg-memory { background: linear-gradient(135deg, #7c3aed, #c026d3); }
+.bg-sorter { background: linear-gradient(135deg, #0284c7, #059669); }
+.bg-switcher { background: linear-gradient(135deg, #d97706, #e11d48); }
+
+.mission-icon {
+  font-size: 2.1rem;
+  line-height: 1;
+}
+
+.mission-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.mission-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+.badge-memory {
+  background: rgba(168, 85, 247, 0.25);
+  color: #d8b4fe;
+  border: 1px solid rgba(168, 85, 247, 0.4);
+}
+
+.badge-sorter {
+  background: rgba(6, 182, 212, 0.25);
+  color: #67e8f9;
+  border: 1px solid rgba(6, 182, 212, 0.4);
+}
+
+.badge-switcher {
+  background: rgba(245, 158, 11, 0.25);
+  color: #fde047;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.mission-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.mission-desc {
+  font-size: 0.85rem;
+  color: #cbd5e1;
+  line-height: 1.25;
+}
+
+.mission-card-action {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   VIEW 2: Active Game Chamber
+   -------------------------------------------------------------------------- */
+.game-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 0;
+  gap: 6px;
+}
+
+/* Prompt Banner */
 .prompt-section {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 8px 12px;
+  padding: 4px 6px;
+  flex-shrink: 0;
 }
 
 .prompt-bubble {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(30, 27, 75, 0.85);
-  border: 1.5px solid rgba(167, 139, 250, 0.4);
-  padding: 8px 20px;
+  background: rgba(30, 27, 75, 0.9);
+  border: 1.5px solid rgba(167, 139, 250, 0.45);
+  padding: 8px 18px;
   border-radius: 999px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  max-width: 90vw;
+  max-width: 95vw;
 }
 
 .prompt-bubble.pulse-attention {
@@ -246,13 +478,24 @@ html, body {
   border-color: var(--star-gold);
 }
 
+.prompt-bubble.rule-switch-flash {
+  animation: ruleSwitchGlow 0.8s ease-out;
+  border-color: #f43f5e;
+}
+
+@keyframes ruleSwitchGlow {
+  0% { transform: scale(0.9); box-shadow: 0 0 20px #f43f5e; }
+  50% { transform: scale(1.12); box-shadow: 0 0 35px #f43f5e; }
+  100% { transform: scale(1); box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3); }
+}
+
 .prompt-icon {
-  font-size: 1.3rem;
+  font-size: 1.35rem;
   line-height: 1;
 }
 
 .prompt-text {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 600;
   letter-spacing: 0.3px;
   text-align: center;
@@ -265,18 +508,16 @@ html, body {
   100% { transform: scale(1); }
 }
 
-/* --------------------------------------------------------------------------
-   Antigravity Chamber (Physics Stage)
-   -------------------------------------------------------------------------- */
+/* Antigravity Chamber */
 .chamber-container {
   flex: 1;
   position: relative;
-  margin: 6px 0;
   border-radius: 28px;
-  background: radial-gradient(circle at center, rgba(39, 31, 89, 0.3) 0%, rgba(13, 9, 38, 0.5) 100%);
-  border: 1.5px dashed rgba(167, 139, 250, 0.25);
+  background: radial-gradient(circle at center, rgba(39, 31, 89, 0.35) 0%, rgba(13, 9, 38, 0.55) 100%);
+  border: 1.5px dashed rgba(167, 139, 250, 0.3);
   overflow: hidden;
   box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.5);
+  min-height: 300px;
 }
 
 .physics-world {
@@ -286,6 +527,108 @@ html, body {
   width: 100%;
   height: 100%;
   pointer-events: auto;
+}
+
+/* --------------------------------------------------------------------------
+   VORTEX PORTALS (Spatial Sorter Game)
+   -------------------------------------------------------------------------- */
+.portal-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.vortex-portal {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  pointer-events: auto;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.portal-solar {
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.35) 0%, rgba(225, 29, 72, 0.2) 70%, rgba(11, 9, 34, 0.8) 100%);
+  border: 2px dashed #f59e0b;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.35);
+}
+
+.portal-nebula {
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.35) 0%, rgba(147, 51, 234, 0.2) 70%, rgba(11, 9, 34, 0.8) 100%);
+  border: 2px dashed #06b6d4;
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.35);
+}
+
+.vortex-ring {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  animation: vortexSpin 4s linear infinite;
+}
+
+.portal-solar .vortex-ring {
+  border-top-color: #ffd233;
+  border-bottom-color: #ff763b;
+}
+
+.portal-nebula .vortex-ring {
+  border-top-color: #00f0ff;
+  border-bottom-color: #bd7aff;
+}
+
+@keyframes vortexSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.vortex-core {
+  font-size: 1.8rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
+}
+
+.portal-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-top: 2px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.portal-hints {
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  margin-top: 1px;
+}
+
+/* Magnetic Hover state when an object is dragged near */
+.vortex-portal.drag-hover {
+  transform: scale(1.18);
+}
+
+.portal-solar.drag-hover {
+  box-shadow: 0 0 35px rgba(245, 158, 11, 0.8), 0 0 15px #ffd233;
+}
+
+.portal-nebula.drag-hover {
+  box-shadow: 0 0 35px rgba(6, 182, 212, 0.8), 0 0 15px #00f0ff;
 }
 
 /* --------------------------------------------------------------------------
@@ -304,6 +647,7 @@ html, body {
   transform-origin: center center;
   will-change: transform, left, top;
   transition: box-shadow 0.2s ease, filter 0.2s ease;
+  z-index: 10;
 }
 
 .body-inner {
@@ -327,6 +671,25 @@ html, body {
   transform: scale(0.92);
 }
 
+/* Dragging State */
+.floating-body.is-dragging {
+  z-index: 99 !important;
+  cursor: grabbing;
+}
+
+.floating-body.is-dragging .body-inner {
+  transform: scale(1.15);
+  box-shadow: 0 0 28px rgba(255, 255, 255, 0.8), 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Object absorbed into portal */
+.floating-body.absorbed {
+  transition: transform 0.4s ease-in, opacity 0.4s ease-in;
+  transform: scale(0) rotate(360deg) !important;
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
 .object-icon {
   font-size: 2.3rem;
   line-height: 1;
@@ -345,7 +708,7 @@ html, body {
   pointer-events: none;
 }
 
-/* Object Unique Themes (Color-Blind Accessible with Distinct Icons + Colors) */
+/* Object Themes */
 .obj-star .body-inner {
   background: radial-gradient(circle at 35% 35%, #fff394, #f59e0b);
   border-color: #fef08a;
@@ -382,9 +745,9 @@ html, body {
   box-shadow: 0 6px 20px rgba(225, 29, 72, 0.5);
 }
 
-/* Active Highlight Cue (When computer demonstrates the sequence) */
+/* Highlight Cues & Animations */
 .floating-body.cue-active {
-  z-index: 10;
+  z-index: 30;
 }
 
 .floating-body.cue-active .body-inner {
@@ -400,7 +763,6 @@ html, body {
   100% { transform: scale(1.28); }
 }
 
-/* Correct Player Tap Flash */
 .floating-body.tap-correct .body-inner {
   transform: scale(1.22);
   filter: brightness(1.25);
@@ -408,7 +770,6 @@ html, body {
   transition: transform 0.12s ease-out;
 }
 
-/* Gentle Wobble (No harsh error flash - Gentle Learning Support) */
 .floating-body.tap-wobble .body-inner {
   animation: gentleWobble 0.6s ease-in-out;
 }
@@ -429,9 +790,10 @@ html, body {
   align-items: center;
   justify-content: space-between;
   padding: 8px 16px;
-  background: rgba(18, 14, 46, 0.6);
+  background: rgba(18, 14, 46, 0.65);
   border-radius: 16px;
   border: 1px solid var(--chamber-border);
+  flex-shrink: 0;
 }
 
 .streak-counter {
@@ -468,7 +830,7 @@ html, body {
 }
 
 /* --------------------------------------------------------------------------
-   Modal Overlays (Start & Level Up Celebration)
+   Celebration Modal
    -------------------------------------------------------------------------- */
 .modal-backdrop {
   position: fixed;
@@ -476,7 +838,7 @@ html, body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(8, 6, 24, 0.82);
+  background: rgba(8, 6, 24, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   z-index: 100;
@@ -497,7 +859,7 @@ html, body {
   background: var(--card-bg);
   border: 2px solid var(--card-border);
   border-radius: 28px;
-  padding: 28px 24px;
+  padding: 26px 20px;
   width: 100%;
   max-width: 380px;
   text-align: center;
@@ -510,80 +872,9 @@ html, body {
   100% { transform: translateY(0) scale(1); opacity: 1; }
 }
 
-.modal-hero-icon {
-  font-size: 4rem;
-  margin-bottom: 8px;
-  filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.6));
-  animation: floatHero 2.5s ease-in-out infinite alternate;
-}
-
-@keyframes floatHero {
-  0% { transform: translateY(-4px) rotate(-3deg); }
-  100% { transform: translateY(6px) rotate(4deg); }
-}
-
-.modal-title {
-  font-size: 1.85rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 4px;
-}
-
-.modal-subtitle {
-  font-size: 1.05rem;
-  color: #cbd5e1;
-  margin-bottom: 20px;
-}
-
-.mission-rules {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 18px;
-  padding: 14px 16px;
-  margin-bottom: 22px;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.rule-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 0.95rem;
-  color: #e2e8f0;
-}
-
-.rule-emoji {
-  font-size: 1.4rem;
-  line-height: 1;
-}
-
-.primary-action-btn {
-  width: 100%;
-  padding: 16px 24px;
-  border-radius: 20px;
-  border: none;
-  background: linear-gradient(135deg, #f59e0b, #ec4899);
-  color: #ffffff;
-  font-family: var(--font-primary);
-  font-size: 1.3rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.primary-action-btn:active {
-  transform: scale(0.96);
-  box-shadow: 0 3px 10px rgba(236, 72, 153, 0.4);
-}
-
-/* Celebration Elements */
 .celebration-badge {
-  font-size: 4.5rem;
-  margin-bottom: 8px;
+  font-size: 4.2rem;
+  margin-bottom: 6px;
   animation: badgeTrophy 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -593,11 +884,24 @@ html, body {
   100% { transform: scale(1) rotate(0deg); }
 }
 
+.modal-title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.modal-subtitle {
+  font-size: 1.05rem;
+  color: #cbd5e1;
+  margin-bottom: 16px;
+}
+
 .reward-stars {
   display: flex;
   justify-content: center;
   gap: 12px;
-  margin: 18px 0 24px 0;
+  margin: 10px 0 22px 0;
 }
 
 .reward-star {
@@ -616,17 +920,63 @@ html, body {
   100% { transform: scale(1); opacity: 1; }
 }
 
-.celebration-btn {
+.modal-actions-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.primary-action-btn {
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 18px;
+  border: none;
   background: linear-gradient(135deg, #10b981, #06b6d4);
+  color: #ffffff;
+  font-family: var(--font-primary);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
   box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.primary-action-btn:active {
+  transform: scale(0.96);
+  box-shadow: 0 3px 10px rgba(16, 185, 129, 0.4);
+}
+
+.secondary-action-btn {
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+  font-family: var(--font-primary);
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.secondary-action-btn:active {
+  transform: scale(0.96);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@keyframes floatHero {
+  0% { transform: translateY(-4px) rotate(-3deg); }
+  100% { transform: translateY(6px) rotate(4deg); }
 }
 
 /* --------------------------------------------------------------------------
-   Small Screen Responsive Tweaks
+   Small Screen Responsive Adjustments
    -------------------------------------------------------------------------- */
 @media (max-width: 360px) {
   :root {
-    --touch-target-size: 76px;
+    --touch-target-size: 78px;
     --hud-height: 64px;
   }
 
@@ -635,10 +985,25 @@ html, body {
   }
 
   .prompt-text {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
   }
 
   .object-icon {
-    font-size: 2rem;
+    font-size: 1.9rem;
+  }
+
+  .vortex-portal {
+    width: 86px;
+    height: 86px;
+  }
+
+  .mission-card {
+    padding: 10px 12px;
+    min-height: 84px;
+  }
+
+  .mission-icon-wrap {
+    width: 52px;
+    height: 52px;
   }
 }

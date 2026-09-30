@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#0d0b26">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="description" content="Ayaan - An Antigravity Spatial Memory & Working Memory Game for Young Astronauts">
-  <title>Ayaan - Antigravity Memory</title>
+  <meta name="description" content="Ayaan - Antigravity Brain Exercise Games for Young Astronauts">
+  <title>Ayaan - Antigravity Brain Missions</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
@@ -25,17 +25,21 @@
           <span class="avatar-icon">🧑‍🚀</span>
           <span class="player-name">Ayaan</span>
         </div>
-        <div class="level-pill" id="levelPill">
-          <span class="level-label">LEVEL</span>
+        <div class="star-bank-badge" title="Total Cosmic Stars Collected">
+          <span class="star-icon">⭐</span>
+          <span class="star-total" id="totalStarsDisplay">0</span>
+        </div>
+        <div class="level-pill hidden" id="levelPill">
+          <span class="level-label">LVL</span>
           <span class="level-number" id="levelDisplay">1</span>
         </div>
       </div>
 
       <div class="hud-center">
-        <!-- Sequence Progress Indicator Dots -->
-        <div class="sequence-tracker" id="sequenceTracker" aria-label="Sequence Progress">
-          <!-- Populated dynamically with glowing dots -->
-        </div>
+        <!-- Sequence Progress Indicator Dots in Game -->
+        <div class="sequence-tracker" id="sequenceTracker" aria-label="Mission Progress"></div>
+        <!-- Hub title indicator -->
+        <div class="hub-tracker-label" id="hubTrackerLabel">MISSION CONTROL</div>
       </div>
 
       <div class="hud-right">
@@ -43,72 +47,130 @@
         <button id="soundToggleBtn" class="hud-btn" aria-label="Toggle Sound" title="Sound Toggle">
           <span id="soundIcon">🔊</span>
         </button>
-        <!-- Replay Sequence Cue Button (Neuro-friendly assistance) -->
-        <button id="hintBtn" class="hud-btn" aria-label="Replay Sequence Cue" title="Watch Sequence Again">
+        <!-- Replay Sequence Cue Button (Only for Memory Matrix) -->
+        <button id="hintBtn" class="hud-btn hidden" aria-label="Replay Sequence Cue" title="Watch Sequence Again">
           <span>👀</span>
+        </button>
+        <!-- Return to Mission Hub Button -->
+        <button id="hubBtn" class="hud-btn hidden" aria-label="Return to Mission Hub" title="Mission Hub">
+          <span>🛸</span>
         </button>
       </div>
     </header>
 
-    <!-- Cognitive Feedback / Prompt Banner -->
-    <section class="prompt-section">
-      <div class="prompt-bubble" id="promptBubble">
-        <span class="prompt-icon" id="promptIcon">✨</span>
-        <span class="prompt-text" id="promptText">Get ready, Astronaut Ayaan!</span>
+    <!-- VIEW 1: MISSION HUB (Game Selection Screen) -->
+    <main class="hub-container" id="missionHub">
+      <div class="hub-header-card">
+        <div class="hub-badge-icon">🚀</div>
+        <h1 class="hub-title">Astronaut Ayaan's Station</h1>
+        <p class="hub-subtitle">Choose your cosmic brain mission today!</p>
       </div>
-    </section>
 
-    <!-- The Antigravity Chamber (Interactive Physics Stage) -->
-    <main class="chamber-container" id="chamber">
-      <!-- Zero-gravity floating objects are dynamically spawned and animated here -->
-      <div id="physicsWorld" class="physics-world" aria-live="polite"></div>
+      <div class="mission-cards-list">
+        <!-- Mission 1: Memory Matrix -->
+        <div class="mission-card card-memory" id="cardMemoryMatrix" role="button" tabindex="0">
+          <div class="mission-card-left">
+            <div class="mission-icon-wrap bg-memory">
+              <span class="mission-icon">🧠</span>
+            </div>
+          </div>
+          <div class="mission-card-body">
+            <div class="mission-badge badge-memory">WORKING MEMORY</div>
+            <h2 class="mission-name">Memory Matrix</h2>
+            <p class="mission-desc">Watch & tap glowing zero-g space wonders in sequence!</p>
+          </div>
+          <div class="mission-card-action">
+            <span class="action-arrow">▶</span>
+          </div>
+        </div>
+
+        <!-- Mission 2: Cosmic Vortex Sorter -->
+        <div class="mission-card card-sorter" id="cardVortexSorter" role="button" tabindex="0">
+          <div class="mission-card-left">
+            <div class="mission-icon-wrap bg-sorter">
+              <span class="mission-icon">🌀</span>
+            </div>
+          </div>
+          <div class="mission-card-body">
+            <div class="mission-badge badge-sorter">SPATIAL TRACKING</div>
+            <h2 class="mission-name">Vortex Sorter</h2>
+            <p class="mission-desc">Drag drifting wonders into their cosmic portals!</p>
+          </div>
+          <div class="mission-card-action">
+            <span class="action-arrow">▶</span>
+          </div>
+        </div>
+
+        <!-- Mission 3: Orbit Rule Switcher -->
+        <div class="mission-card card-switcher" id="cardOrbitSwitcher" role="button" tabindex="0">
+          <div class="mission-card-left">
+            <div class="mission-icon-wrap bg-switcher">
+              <span class="mission-icon">⚡</span>
+            </div>
+          </div>
+          <div class="mission-card-body">
+            <div class="mission-badge badge-switcher">COGNITIVE FLEX</div>
+            <h2 class="mission-name">Orbit Switcher</h2>
+            <p class="mission-desc">Tap fast as the cosmic rules switch between shape & color!</p>
+          </div>
+          <div class="mission-card-action">
+            <span class="action-arrow">▶</span>
+          </div>
+        </div>
+      </div>
     </main>
 
-    <!-- Bottom Status Bar -->
-    <footer class="hud-footer">
-      <div class="streak-counter">
-        <span class="streak-icon">⭐</span>
-        <span class="streak-label">Stars:</span>
-        <span class="streak-value" id="scoreDisplay">0</span>
-      </div>
-      <div class="level-title-tag" id="levelNameTag">Cadet Float</div>
-    </footer>
-  </div>
+    <!-- VIEW 2: ACTIVE GAME CHAMBER -->
+    <div class="game-container hidden" id="gameContainer">
+      <!-- Cognitive Feedback / Prompt Banner -->
+      <section class="prompt-section">
+        <div class="prompt-bubble" id="promptBubble">
+          <span class="prompt-icon" id="promptIcon">✨</span>
+          <span class="prompt-text" id="promptText">Get ready, Astronaut Ayaan!</span>
+        </div>
+      </section>
 
-  <!-- Start Game / Instructions Modal -->
-  <div class="modal-backdrop" id="startModal">
-    <div class="modal-card">
-      <div class="modal-hero-icon">🚀</div>
-      <h1 class="modal-title">Welcome, Ayaan!</h1>
-      <p class="modal-subtitle">Ready for your Antigravity Mission?</p>
-      
-      <div class="mission-rules">
-        <div class="rule-item">
-          <span class="rule-emoji">👀</span>
-          <p><strong>Watch:</strong> Remember the glowing space objects in order.</p>
-        </div>
-        <div class="rule-item">
-          <span class="rule-emoji">👆</span>
-          <p><strong>Tap:</strong> Touch them in the same order as they float in zero-g!</p>
-        </div>
-        <div class="rule-item">
-          <span class="rule-emoji">🌟</span>
-          <p><strong>Have Fun:</strong> No rush, no mistakes—just cosmic fun!</p>
-        </div>
-      </div>
+      <!-- The Antigravity Chamber (Interactive Physics Stage) -->
+      <main class="chamber-container" id="chamber">
+        <!-- Cosmic Vortex Portals (Activated for Vortex Sorter game) -->
+        <div class="portal-container hidden" id="portalContainer">
+          <div class="vortex-portal portal-solar" id="portalSolar" data-target="solar">
+            <div class="vortex-ring"></div>
+            <div class="vortex-core">☀️</div>
+            <span class="portal-label">Solar Vortex</span>
+            <div class="portal-hints">⭐ ☄️ 🚀</div>
+          </div>
 
-      <button id="startPlayBtn" class="primary-action-btn">
-        <span>Blast Off! 🚀</span>
-      </button>
+          <div class="vortex-portal portal-nebula" id="portalNebula" data-target="nebula">
+            <div class="vortex-ring"></div>
+            <div class="vortex-core">🌌</div>
+            <span class="portal-label">Nebula Vortex</span>
+            <div class="portal-hints">🪐 🌙 💎</div>
+          </div>
+        </div>
+
+        <!-- Zero-gravity floating objects are dynamically spawned and animated here -->
+        <div id="physicsWorld" class="physics-world" aria-live="polite"></div>
+      </main>
+
+      <!-- Bottom Status Bar -->
+      <footer class="hud-footer">
+        <div class="streak-counter">
+          <span class="streak-icon">⭐</span>
+          <span class="streak-label">Stars:</span>
+          <span class="streak-value" id="scoreDisplay">0</span>
+        </div>
+        <div class="level-title-tag" id="levelNameTag">Cadet Float</div>
+      </footer>
     </div>
   </div>
 
-  <!-- Level Up Celebration Modal -->
+  <!-- Level Up / Victory Celebration Modal -->
   <div class="modal-backdrop hidden" id="celebrationModal">
     <div class="modal-card celebration-card">
       <div class="celebration-badge">🏆</div>
       <h2 class="modal-title" id="celebrationTitle">Super Space Explorer!</h2>
-      <p class="modal-subtitle" id="celebrationMessage">Ayaan mastered the sequence!</p>
+      <p class="modal-subtitle" id="celebrationMessage">Ayaan completed the cosmic mission!</p>
       
       <div class="reward-stars" id="rewardStarsContainer">
         <span class="reward-star">⭐</span>
@@ -116,9 +178,14 @@
         <span class="reward-star">⭐</span>
       </div>
 
-      <button id="nextLevelBtn" class="primary-action-btn celebration-btn">
-        <span>Next Cosmic Orbit 🛸</span>
-      </button>
+      <div class="modal-actions-row">
+        <button id="nextLevelBtn" class="primary-action-btn celebration-btn">
+          <span>Next Orbit 🛸</span>
+        </button>
+        <button id="celebrationHubBtn" class="secondary-action-btn">
+          <span>Mission Hub 🚀</span>
+        </button>
+      </div>
     </div>
   </div>
 
