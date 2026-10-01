@@ -1,62 +1,54 @@
-# Ayaan - Antigravity Mobile Brain Exercise Games 🚀🪐
+# Ayaan - Supercharged Antigravity Space Memory Game 🚀🪐
 
-An accessible, multi-mission zero-gravity mobile brain exercise app engineered for **Ayaan** (a 6-year-old child), focused on developing **working memory**, **spatial reasoning**, and **cognitive flexibility** through high-frequency positive reinforcement.
-
----
-
-## 🧠 Cognitive Neuroscience Architecture
-
-1. **Visuospatial Working Memory (Baddeley's Model & Miller-Cowan Span)**:
-   - For a 6-year-old child, working memory capacity is typically 3 to 4 chunks ($K \approx 3–4$).
-   - **Mission 1 (Memory Matrix)** engages sequential encoding and active recall of drifting space wonders without time-pressure stress.
-
-2. **Sensorimotor Drag Tracking & Spatial Categorization**:
-   - Developing fine motor coordination benefits from zero-latency physical drag targets with magnetic target wells.
-   - **Mission 2 (Vortex Sorter)** trains multiple object tracking (MOT) and categorization as Ayaan navigates drifting wonders into **Solar** vs. **Nebula** cosmic portals.
-
-3. **Cognitive Flexibility & Inhibitory Control (Dimensional Change Card Sort - DCCS)**:
-   - At age 6, children develop executive function milestones transitioning from single-dimension rules to dynamic task switching.
-   - **Mission 3 (Orbit Switcher)** challenges Ayaan to adapt when rules switch between **Shape** (e.g. *"Find the Planet!"*) and **Color** (e.g. *"Rule Switch! Find the Yellow wonder!"*), reinforcing inhibitory control against perseveration.
-
-4. **Dopamine Regulation & Positive Reinforcement**:
-   - Every tap or drag match triggers instant multi-sensory feedback: harmonic pentatonic synth bells (Web Audio API), visual aura glow, and stardust particle explosions.
-   - **Growth-Mindset Non-Punitive Feedback**: Zero buzzers, red penalty screens, or score loss. If a mismatch occurs, a warm low harmonic chime plays, the object wobbles gently, and encouraging guidance prompts Ayaan to try again without stress.
-   - **Cosmic Star Bank**: All stars earned across all missions accumulate in a persistent star bank stored locally.
-
-5. **Motor Skill Accessibility**:
-   - Minimum $88\text{px} \times 88\text{px}$ touch targets optimized for young children's motor coordination.
-   - High-contrast, colorblind-accessible celestial shapes (Star, Planet, Moon, Comet, Crystal, Rocket) with distinct icons, colors, and musical frequencies.
+An accessible, zero-gravity mobile spatial memory game engineered specifically for **Ayaan** (a 6-year-old child), focused on developing **working memory**, **visuospatial sequencing**, and **auditory-motor coordination** through high-frequency positive reinforcement and zero-friction play.
 
 ---
 
-## 🎮 Game Modes in Version 1
+## 🧠 Cognitive Neuroscience Principles (Tailored for Ayaan)
 
-### 🛸 Mission Hub (Central Command)
-- Intuitive single-tap game launcher displaying Ayaan's total star bank, sound controls, and colorful mission cards with cognitive superpower badges.
-- One-tap return button (🛸) in the HUD allows Ayaan to easily switch games at any time.
+1. **Working Memory & Chunking Capacity**:
+   - For a 6-year-old child, Miller-Cowan working memory spans are typically 3 to 4 chunks ($K \approx 3–4$).
+   - Progressive Orbits gently scale from **Orbit 1 (3 items, 3 notes)** up to **Orbit 6 (6 items, 6 notes)**.
+   - Immediate visual cues (glowing auras) paired with musical pentatonic notes support multi-modal sensory binding in the prefrontal cortex.
 
-### 1. 🧠 Memory Matrix (Working Memory & Sequencing)
-- Space wonders drift in zero-gravity with soft repulsion.
-- The computer demonstrates a glowing sequence with musical pentatonic notes.
-- Ayaan reproduces the sequence. Replay cue button (👀) available anytime.
-- **Progression**:
-  - *Level 1 (Cadet Memory)*: 3 stationary floating items.
-  - *Level 2 (Cosmic Memory)*: 4 gently drifting items.
-  - *Level 3 (Supernova Memory)*: 5 drifting items with rebounds.
+2. **Zero Reading Barrier (Pre-Reader Friendly)**:
+   - Everything is communicated intuitively through visual sparkles, glowing orbits, and musical chimes. No complex text instructions to decipher.
 
-### 2. 🌀 Vortex Sorter (Spatial Tracking & Drag Sorting)
-- Drifting celestial bodies float freely across the antigravity chamber.
-- Two cosmic vortex portals hover at the top:
-  - **Solar Vortex ☀️**: Accepts Solar wonders (Stars ⭐, Comets ☄️, Rockets 🚀).
-  - **Nebula Vortex 🌌**: Accepts Deep Space wonders (Planets 🪐, Moons 🌙, Crystals 💎).
-- Smooth pointer drag-and-drop with stardust trails and magnetic suction animations.
+3. **Pure Single-Tap Motor Flow (Zero Drag Friction)**:
+   - Extra-large $\ge 88\text{px} \times 88\text{px}$ touch targets.
+   - Eliminates cumbersome screen dragging in favor of responsive, rhythmic, single-tap interaction.
 
-### 3. ⚡ Orbit Switcher (Cognitive Flexibility & Task Switching)
-- Drifting space wonders float in zero-g.
-- Mission Commander issues alternating rules with an enchanting double-chime:
-  - **Shape Rule**: e.g., *"Find the ⭐ Star!"*, *"Find the 🪐 Planet!"*
-  - **Color Rule**: e.g., *"RULE SWITCH! 🎨 Find the 💛 Yellow wonder!"*
-- Trains task switching, attention shifting, and inhibitory control.
+4. **Multi-Instrument Auditory Dopamine**:
+   - Ayaan can switch between 3 joyful instruments:
+     - 🔔 **Crystal Bells** (sparkling, glassy xylophone tones)
+     - 🎹 **Cosmic Piano** (warm, deep acoustic tones)
+     - 🚀 **Space Synth** (playful sci-fi space beeps)
+
+5. **Dopamine Regulation & Growth-Mindset Feedback**:
+   - **Zero failure states**: No harsh buzzers, red penalty screens, or score loss.
+   - If an incorrect tap occurs, a warm low harmonic chime plays, the object wobbles gently, and the melody automatically replays with encouraging guidance: *"Almost there! Let's listen together again!"*.
+   - **Replay Hint Cue (👀)**: Ayaan can watch the melody demonstrated again anytime.
+
+---
+
+## 🌟 Supercharged Features
+
+### 1. 🪐 Progressive Cosmic Orbits
+- **Orbit 1: Starlight Cradle ⭐** — 3 stationary floating items, 3-note melody.
+- **Orbit 2: Planet Walk 🪐** — 4 gently drifting items, 4-note melody.
+- **Orbit 3: Asteroid Symphony ☄️** — 4 drifting items with zero-g rebounds, 4-note melody.
+- **Orbit 4: Crystal Galaxy 💎** — 5 drifting items, 5-note melody.
+- **Orbit 5: Rocket Launch 🚀** — 5 drifting items with rebounds, 5-note melody.
+- **Orbit 6: Supernova Universe 👑** — 6 drifting items, 6-note grand melody.
+
+### 2. ✨ Star Rush Bonus Round (Pure Sensory Joy)
+- Pop drifting golden stars, comets, and cosmic gems in zero gravity!
+- Every single pop plays a crisp musical note, showers rainbow stardust, and adds bonus stars to Ayaan's bank.
+- 12 seconds of pure reward with zero pressure.
+
+### 3. 🎖️ Astronaut Badges & Trophy Case
+- Unlockable badges for milestones (e.g. *Cadet Launch*, *Melody Maestro*, *Star Hunter*, *Star Popper*, *Galaxy Legend*).
+- Unlocks trigger a royal fanfare chime and confetti celebration.
 
 ---
 
@@ -68,9 +60,9 @@ Ayaan/
 │   └── workflows/
 │       └── build-apk.yml       # GitHub Actions workflow for automated Android APK builds
 ├── www/                        # Production web application assets
-│   ├── index.html              # Mission Hub, viewport, chamber & HUD markup
+│   ├── index.html              # Core game viewport, Galaxy Map & HUD markup
 │   ├── style.css               # Mobile-first CSS3 styles, safe-area insets & zero-g animations
-│   ├── script.js               # Multi-game engine, physics loop & Web Audio synthesizer
+│   ├── script.js               # Supercharged physics engine, multi-pack audio & state loop
 │   └── assets/
 │       └── icon.svg            # High-resolution cosmic vector app icon
 ├── capacitor.config.json       # Mobile wrapper configuration (Android)

@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#0d0b26">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="description" content="Ayaan - Antigravity Brain Exercise Games for Young Astronauts">
-  <title>Ayaan - Antigravity Brain Missions</title>
+  <meta name="description" content="Ayaan - Supercharged Antigravity Space Memory Game for Young Astronauts">
+  <title>Ayaan - Antigravity Space Memory</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
@@ -29,99 +29,79 @@
           <span class="star-icon">⭐</span>
           <span class="star-total" id="totalStarsDisplay">0</span>
         </div>
-        <div class="level-pill hidden" id="levelPill">
-          <span class="level-label">LVL</span>
+        <div class="level-pill" id="levelPill">
+          <span class="level-label">ORBIT</span>
           <span class="level-number" id="levelDisplay">1</span>
         </div>
       </div>
 
       <div class="hud-center">
         <!-- Sequence Progress Indicator Dots in Game -->
-        <div class="sequence-tracker" id="sequenceTracker" aria-label="Mission Progress"></div>
-        <!-- Hub title indicator -->
-        <div class="hub-tracker-label" id="hubTrackerLabel">MISSION CONTROL</div>
+        <div class="sequence-tracker" id="sequenceTracker" aria-label="Melody Progress"></div>
+        <!-- Map title indicator -->
+        <div class="hub-tracker-label hidden" id="hubTrackerLabel">GALAXY MAP</div>
       </div>
 
       <div class="hud-right">
-        <!-- Audio Mute / Unmute Toggle -->
-        <button id="soundToggleBtn" class="hud-btn" aria-label="Toggle Sound" title="Sound Toggle">
-          <span id="soundIcon">🔊</span>
+        <!-- Musical Instrument Sound Pack Switcher -->
+        <button id="instrumentBtn" class="hud-btn" aria-label="Switch Musical Instrument" title="Switch Instrument">
+          <span id="instrumentIcon">🔔</span>
         </button>
-        <!-- Replay Sequence Cue Button (Only for Memory Matrix) -->
-        <button id="hintBtn" class="hud-btn hidden" aria-label="Replay Sequence Cue" title="Watch Sequence Again">
+        <!-- Replay Sequence Cue Button -->
+        <button id="hintBtn" class="hud-btn" aria-label="Watch Sequence Again" title="Watch Melody Again">
           <span>👀</span>
         </button>
-        <!-- Return to Mission Hub Button -->
-        <button id="hubBtn" class="hud-btn hidden" aria-label="Return to Mission Hub" title="Mission Hub">
-          <span>🛸</span>
+        <!-- Trophy & Badges Button -->
+        <button id="trophyBtn" class="hud-btn" aria-label="View Astronaut Badges" title="Trophy Badges">
+          <span>🏆</span>
+        </button>
+        <!-- Galaxy Map / Home Button -->
+        <button id="homeBtn" class="hud-btn" aria-label="Galaxy Map" title="Galaxy Map">
+          <span id="homeIcon">🗺️</span>
+        </button>
+        <!-- Sound Mute / Unmute Toggle -->
+        <button id="soundToggleBtn" class="hud-btn" aria-label="Toggle Sound" title="Sound Toggle">
+          <span id="soundIcon">🔊</span>
         </button>
       </div>
     </header>
 
-    <!-- VIEW 1: MISSION HUB (Game Selection Screen) -->
-    <main class="hub-container" id="missionHub">
-      <div class="hub-header-card">
-        <div class="hub-badge-icon">🚀</div>
-        <h1 class="hub-title">Astronaut Ayaan's Station</h1>
-        <p class="hub-subtitle">Choose your cosmic brain mission today!</p>
+    <!-- VIEW 1: GALAXY MAP (Orbit Selector & Star Rush) -->
+    <main class="orbit-map-container hidden" id="orbitMapScreen">
+      <div class="map-hero-card">
+        <div class="map-badge-icon">🚀</div>
+        <h1 class="map-title">Astronaut Ayaan's Galaxy</h1>
+        <p class="map-subtitle">Tap an orbit to launch your zero-g memory mission!</p>
       </div>
 
-      <div class="mission-cards-list">
-        <!-- Mission 1: Memory Matrix -->
-        <div class="mission-card card-memory" id="cardMemoryMatrix" role="button" tabindex="0">
-          <div class="mission-card-left">
-            <div class="mission-icon-wrap bg-memory">
-              <span class="mission-icon">🧠</span>
-            </div>
-          </div>
-          <div class="mission-card-body">
-            <div class="mission-badge badge-memory">WORKING MEMORY</div>
-            <h2 class="mission-name">Memory Matrix</h2>
-            <p class="mission-desc">Watch & tap glowing zero-g space wonders in sequence!</p>
-          </div>
-          <div class="mission-card-action">
-            <span class="action-arrow">▶</span>
-          </div>
-        </div>
+      <!-- Quick Play Primary Button -->
+      <button class="launch-hero-btn" id="quickPlayBtn">
+        <span>🚀 Blast Off to Orbit <span id="quickPlayLevelNum">1</span>!</span>
+      </button>
 
-        <!-- Mission 2: Cosmic Vortex Sorter -->
-        <div class="mission-card card-sorter" id="cardVortexSorter" role="button" tabindex="0">
-          <div class="mission-card-left">
-            <div class="mission-icon-wrap bg-sorter">
-              <span class="mission-icon">🌀</span>
-            </div>
-          </div>
-          <div class="mission-card-body">
-            <div class="mission-badge badge-sorter">SPATIAL TRACKING</div>
-            <h2 class="mission-name">Vortex Sorter</h2>
-            <p class="mission-desc">Drag drifting wonders into their cosmic portals!</p>
-          </div>
-          <div class="mission-card-action">
-            <span class="action-arrow">▶</span>
-          </div>
+      <!-- Star Rush Bonus Banner -->
+      <div class="star-rush-banner" id="startStarRushBtn" role="button" tabindex="0">
+        <div class="star-rush-left">
+          <span class="star-rush-icon">✨</span>
         </div>
+        <div class="star-rush-body">
+          <div class="star-rush-tag">BONUS MINI-GAME</div>
+          <h2 class="star-rush-title">Star Rush Pop! 🌟</h2>
+          <p class="star-rush-desc">Pop zero-g floating stars & gems for bonus dopamine stars!</p>
+        </div>
+        <div class="star-rush-action">
+          <span class="rush-arrow">▶</span>
+        </div>
+      </div>
 
-        <!-- Mission 3: Orbit Rule Switcher -->
-        <div class="mission-card card-switcher" id="cardOrbitSwitcher" role="button" tabindex="0">
-          <div class="mission-card-left">
-            <div class="mission-icon-wrap bg-switcher">
-              <span class="mission-icon">⚡</span>
-            </div>
-          </div>
-          <div class="mission-card-body">
-            <div class="mission-badge badge-switcher">COGNITIVE FLEX</div>
-            <h2 class="mission-name">Orbit Switcher</h2>
-            <p class="mission-desc">Tap fast as the cosmic rules switch between shape & color!</p>
-          </div>
-          <div class="mission-card-action">
-            <span class="action-arrow">▶</span>
-          </div>
-        </div>
+      <!-- Orbit Selection Grid -->
+      <div class="orbits-grid" id="orbitsGrid">
+        <!-- Dynamically rendered orbits -->
       </div>
     </main>
 
-    <!-- VIEW 2: ACTIVE GAME CHAMBER -->
-    <div class="game-container hidden" id="gameContainer">
+    <!-- VIEW 2: ACTIVE GAME CHAMBER (Memory Matrix & Star Rush) -->
+    <div class="game-container" id="gameChamberScreen">
       <!-- Cognitive Feedback / Prompt Banner -->
       <section class="prompt-section">
         <div class="prompt-bubble" id="promptBubble">
@@ -132,24 +112,7 @@
 
       <!-- The Antigravity Chamber (Interactive Physics Stage) -->
       <main class="chamber-container" id="chamber">
-        <!-- Cosmic Vortex Portals (Activated for Vortex Sorter game) -->
-        <div class="portal-container hidden" id="portalContainer">
-          <div class="vortex-portal portal-solar" id="portalSolar" data-target="solar">
-            <div class="vortex-ring"></div>
-            <div class="vortex-core">☀️</div>
-            <span class="portal-label">Solar Vortex</span>
-            <div class="portal-hints">⭐ ☄️ 🚀</div>
-          </div>
-
-          <div class="vortex-portal portal-nebula" id="portalNebula" data-target="nebula">
-            <div class="vortex-ring"></div>
-            <div class="vortex-core">🌌</div>
-            <span class="portal-label">Nebula Vortex</span>
-            <div class="portal-hints">🪐 🌙 💎</div>
-          </div>
-        </div>
-
-        <!-- Zero-gravity floating objects are dynamically spawned and animated here -->
+        <!-- Zero-gravity floating celestial bodies -->
         <div id="physicsWorld" class="physics-world" aria-live="polite"></div>
       </main>
 
@@ -160,7 +123,7 @@
           <span class="streak-label">Stars:</span>
           <span class="streak-value" id="scoreDisplay">0</span>
         </div>
-        <div class="level-title-tag" id="levelNameTag">Cadet Float</div>
+        <div class="level-title-tag" id="levelNameTag">Orbit 1: Starlight Cradle ⭐</div>
       </footer>
     </div>
   </div>
@@ -169,8 +132,8 @@
   <div class="modal-backdrop hidden" id="celebrationModal">
     <div class="modal-card celebration-card">
       <div class="celebration-badge">🏆</div>
-      <h2 class="modal-title" id="celebrationTitle">Super Space Explorer!</h2>
-      <p class="modal-subtitle" id="celebrationMessage">Ayaan completed the cosmic mission!</p>
+      <h2 class="modal-title" id="celebrationTitle">Super Space Maestro!</h2>
+      <p class="modal-subtitle" id="celebrationMessage">Ayaan played the cosmic melody perfectly!</p>
       
       <div class="reward-stars" id="rewardStarsContainer">
         <span class="reward-star">⭐</span>
@@ -180,10 +143,53 @@
 
       <div class="modal-actions-row">
         <button id="nextLevelBtn" class="primary-action-btn celebration-btn">
-          <span>Next Orbit 🛸</span>
+          <span>Next Cosmic Orbit 🛸</span>
         </button>
-        <button id="celebrationHubBtn" class="secondary-action-btn">
-          <span>Mission Hub 🚀</span>
+        <button id="celebrationMapBtn" class="secondary-action-btn">
+          <span>Galaxy Map 🗺️</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Astronaut Trophy & Badges Modal -->
+  <div class="modal-backdrop hidden" id="badgeModal">
+    <div class="modal-card badges-card">
+      <div class="badge-modal-header">
+        <span class="badge-modal-icon">🎖️</span>
+        <h2 class="modal-title">Ayaan's Space Trophies</h2>
+        <p class="modal-subtitle">Badges unlocked by Super Astronaut Ayaan:</p>
+      </div>
+
+      <div class="badges-list" id="badgesListContainer">
+        <!-- Populated dynamically -->
+      </div>
+
+      <button id="closeBadgesBtn" class="primary-action-btn" style="margin-top: 14px;">
+        <span>Back to Space 🚀</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Star Rush Summary Modal -->
+  <div class="modal-backdrop hidden" id="starRushEndModal">
+    <div class="modal-card celebration-card">
+      <div class="celebration-badge">🌟</div>
+      <h2 class="modal-title">Star Rush Complete!</h2>
+      <p class="modal-subtitle">Ayaan popped <span id="starRushPoppedCount" style="color: #ffd233; font-weight: 700;">0</span> cosmic stars!</p>
+      
+      <div class="reward-stars">
+        <span class="reward-star">⭐</span>
+        <span class="reward-star">⭐</span>
+        <span class="reward-star">⭐</span>
+      </div>
+
+      <div class="modal-actions-row">
+        <button id="playStarRushAgainBtn" class="primary-action-btn celebration-btn">
+          <span>Pop Again! 🌟</span>
+        </button>
+        <button id="starRushBackBtn" class="secondary-action-btn">
+          <span>Back to Mission 🚀</span>
         </button>
       </div>
     </div>
