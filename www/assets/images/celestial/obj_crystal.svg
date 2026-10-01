@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <radialGradient id="crystalGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="60%" stop-color="#00f5a0" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#00f5a0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="topFacet" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#baffdf"/>
+      <stop offset="100%" stop-color="#00f5a0"/>
+    </linearGradient>
+    <linearGradient id="sideLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d285"/>
+      <stop offset="100%" stop-color="#008f5a"/>
+    </linearGradient>
+    <linearGradient id="sideRight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f5a0"/>
+      <stop offset="100%" stop-color="#00aa6c"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Ambient Glow -->
+  <circle cx="60" cy="60" r="54" fill="url(#crystalGlow)"/>
+
+  <!-- Faceted Prism Shape -->
+  <!-- Top Table -->
+  <polygon points="36,24 84,24 98,50 60,56 22,50" fill="url(#topFacet)" stroke="#00774a" stroke-width="1.5"/>
+
+  <!-- Left Bottom Facet -->
+  <polygon points="22,50 60,56 60,102 22,50" fill="url(#sideLeft)" stroke="#00774a" stroke-width="1.5"/>
+
+  <!-- Right Bottom Facet -->
+  <polygon points="98,50 60,56 60,102 98,50" fill="url(#sideRight)" stroke="#00774a" stroke-width="1.5"/>
+
+  <!-- Outer Facet Wings -->
+  <polygon points="36,24 22,50 42,52" fill="#75ffc9" opacity="0.8"/>
+  <polygon points="84,24 98,50 78,52" fill="#30e09b" opacity="0.8"/>
+
+  <!-- Kawaii Center Face on Crystal Body -->
+  <ellipse cx="50" cy="66" rx="3.8" ry="5.2" fill="#003d25"/>
+  <circle cx="48.5" cy="64.5" r="1.6" fill="#ffffff"/>
+
+  <ellipse cx="70" cy="66" rx="3.8" ry="5.2" fill="#003d25"/>
+  <circle cx="68.5" cy="64.5" r="1.6" fill="#ffffff"/>
+
+  <!-- Rosy Cheeks -->
+  <ellipse cx="43" cy="72" rx="3.2" ry="2" fill="#ff7694" opacity="0.8"/>
+  <ellipse cx="77" cy="72" rx="3.2" ry="2" fill="#ff7694" opacity="0.8"/>
+
+  <!-- Happy Smile -->
+  <path d="M 56 71 Q 60 76 64 71" fill="none" stroke="#003d25" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Magical Sparkle Crosses -->
+  <path d="M 28 20 Q 28 26 34 26 Q 28 26 28 32 Q 28 26 22 26 Q 28 26 28 20 Z" fill="#ffffff"/>
+  <path d="M 94 40 Q 94 45 99 45 Q 94 45 94 50 Q 94 45 89 45 Q 94 45 94 40 Z" fill="#ffffff" opacity="0.9"/>
+  <circle cx="60" cy="18" r="2.5" fill="#ffffff" opacity="0.8"/>
+</svg>

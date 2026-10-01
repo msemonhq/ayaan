@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <radialGradient id="planetGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="60%" stop-color="#00f0ff" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#00f0ff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="planetBody" x1="20%" y1="10%" x2="80%" y2="90%">
+      <stop offset="0%" stop-color="#7df9ff"/>
+      <stop offset="45%" stop-color="#00d2f0"/>
+      <stop offset="100%" stop-color="#0083b0"/>
+    </linearGradient>
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f093fb"/>
+      <stop offset="50%" stop-color="#f5576c"/>
+      <stop offset="100%" stop-color="#4facfe"/>
+    </linearGradient>
+    <linearGradient id="headphoneGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffd233"/>
+      <stop offset="100%" stop-color="#ff763b"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Ambient Glow -->
+  <circle cx="60" cy="60" r="54" fill="url(#planetGlow)"/>
+
+  <!-- Back Half of Planetary Ring -->
+  <g transform="rotate(-18 60 60)">
+    <path d="M 12,60 A 52,18 0 0,1 108,60" fill="none" stroke="url(#ringGrad)" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
+  </g>
+
+  <!-- Planet Main Sphere -->
+  <circle cx="60" cy="60" r="36" fill="url(#planetBody)" stroke="#00b4d8" stroke-width="2.5"/>
+
+  <!-- Atmosphere Stripes / Bands -->
+  <path d="M 27 54 Q 60 64 93 54" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.25"/>
+  <path d="M 30 68 Q 60 78 90 68" fill="none" stroke="#005b82" stroke-width="2.5" stroke-linecap="round" opacity="0.4"/>
+
+  <!-- Glossy Specular Reflection -->
+  <path d="M 38 34 A 28 28 0 0 1 76 30 A 28 28 0 0 0 38 34 Z" fill="#ffffff" opacity="0.45"/>
+
+  <!-- Front Half of Planetary Ring (passes in front of planet) -->
+  <g transform="rotate(-18 60 60)">
+    <path d="M 108,60 A 52,18 0 0,1 12,60" fill="none" stroke="url(#ringGrad)" stroke-width="8" stroke-linecap="round"/>
+    <path d="M 104,60 A 48,14 0 0,1 16,60" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" opacity="0.75"/>
+  </g>
+
+  <!-- Kawaii Headphone Band -->
+  <path d="M 32 46 A 32 32 0 0 1 88 46" fill="none" stroke="url(#headphoneGrad)" stroke-width="4.5" stroke-linecap="round"/>
+
+  <!-- Left Headphone Ear Cup -->
+  <rect x="23" y="44" width="10" height="22" rx="5" fill="url(#headphoneGrad)" stroke="#ffffff" stroke-width="1.5"/>
+  <!-- Right Headphone Ear Cup -->
+  <rect x="87" y="44" width="10" height="22" rx="5" fill="url(#headphoneGrad)" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Kawaii Cute Eyes -->
+  <ellipse cx="50" cy="58" rx="4.2" ry="5.5" fill="#04233a"/>
+  <circle cx="48.5" cy="56" r="1.8" fill="#ffffff"/>
+  <circle cx="51.5" cy="59.5" r="0.9" fill="#ffffff"/>
+
+  <ellipse cx="70" cy="58" rx="4.2" ry="5.5" fill="#04233a"/>
+  <circle cx="68.5" cy="56" r="1.8" fill="#ffffff"/>
+  <circle cx="71.5" cy="59.5" r="0.9" fill="#ffffff"/>
+
+  <!-- Rosy Cheeks -->
+  <circle cx="43" cy="65" r="3" fill="#ff7694" opacity="0.8"/>
+  <circle cx="77" cy="65" r="3" fill="#ff7694" opacity="0.8"/>
+
+  <!-- Cute Cat-like / Happy Mouth -->
+  <path d="M 55 65 Q 60 70 65 65" fill="none" stroke="#04233a" stroke-width="2" stroke-linecap="round"/>
+</svg>

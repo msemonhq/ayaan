@@ -1,61 +1,208 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
   <defs>
-    <radialGradient id="bgGrad" cx="50%" cy="30%" r="75%">
-      <stop offset="0%" stop-color="#2d1f69"/>
-      <stop offset="60%" stop-color="#110c2c"/>
-      <stop offset="100%" stop-color="#070414"/>
+    <!-- Background Cosmic Gradient -->
+    <radialGradient id="spaceBg" cx="50%" cy="35%" r="75%">
+      <stop offset="0%" stop-color="#311e6d"/>
+      <stop offset="45%" stop-color="#18103c"/>
+      <stop offset="85%" stop-color="#0b081c"/>
+      <stop offset="100%" stop-color="#05030e"/>
     </radialGradient>
-    <linearGradient id="rocketGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffedd5"/>
-      <stop offset="50%" stop-color="#f43f5e"/>
-      <stop offset="100%" stop-color="#881337"/>
+
+    <!-- Nebula Glows -->
+    <radialGradient id="nebulaCyan" cx="25%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#00f0ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="nebulaPink" cx="80%" cy="70%" r="50%">
+      <stop offset="0%" stop-color="#ff2a85" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#ff2a85" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Astronaut Suit Gradients -->
+    <linearGradient id="suitWhite" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="55%" stop-color="#f1f5f9"/>
+      <stop offset="100%" stop-color="#cbd5e1"/>
     </linearGradient>
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="8" result="blur" />
-      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    <linearGradient id="suitCyan" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+
+    <!-- Visor Amber-Gold Gradient with Gloss -->
+    <linearGradient id="visorGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffea79"/>
+      <stop offset="35%" stop-color="#ffb703"/>
+      <stop offset="70%" stop-color="#fb8500"/>
+      <stop offset="100%" stop-color="#c25e00"/>
+    </linearGradient>
+
+    <!-- Golden Star Gradient -->
+    <linearGradient id="starGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff8b5"/>
+      <stop offset="40%" stop-color="#ffd233"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+
+    <!-- Rocket Gradients -->
+    <linearGradient id="rocketBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="rocketRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff4d6d"/>
+      <stop offset="100%" stop-color="#c9184a"/>
+    </linearGradient>
+    <linearGradient id="fireGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="40%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+
+    <!-- Glow & Soft Shadow Filters -->
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="iconShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+    <filter id="elementShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#030014" flood-opacity="0.5"/>
     </filter>
   </defs>
 
-  <!-- Deep Space Rounded Background -->
-  <rect width="512" height="512" rx="115" fill="url(#bgGrad)"/>
-  
-  <!-- Antigravity Chamber Halo -->
-  <circle cx="256" cy="256" r="210" fill="none" stroke="#8b5cf6" stroke-width="4" stroke-dasharray="14 10" opacity="0.45"/>
-  <circle cx="256" cy="256" r="185" fill="none" stroke="#00f0ff" stroke-width="2" opacity="0.3"/>
+  <!-- App Icon Base Squircle with Shadow -->
+  <rect width="512" height="512" rx="116" fill="url(#spaceBg)"/>
+  <rect width="512" height="512" rx="116" fill="url(#nebulaCyan)"/>
+  <rect width="512" height="512" rx="116" fill="url(#nebulaPink)"/>
 
-  <!-- Floating Stardust Stars -->
-  <circle cx="110" cy="130" r="4" fill="#ffffff" opacity="0.8"/>
-  <circle cx="390" cy="110" r="5" fill="#fef08a" opacity="0.9"/>
-  <circle cx="410" cy="380" r="3.5" fill="#ffffff" opacity="0.7"/>
-  <circle cx="120" cy="390" r="4.5" fill="#67e8f9" opacity="0.85"/>
-  <circle cx="256" cy="70" r="3" fill="#ffffff" opacity="0.6"/>
+  <!-- Golden & Cyan Luminous Orbit Rings -->
+  <ellipse cx="256" cy="270" rx="215" ry="145" fill="none" stroke="#00f0ff" stroke-width="3" stroke-dasharray="12 10" opacity="0.35" transform="rotate(-18 256 270)"/>
+  <ellipse cx="256" cy="270" rx="175" ry="115" fill="none" stroke="#ffd233" stroke-width="2" opacity="0.25" transform="rotate(-18 256 270)"/>
 
-  <!-- Floating Planet in Background -->
-  <circle cx="370" cy="160" r="32" fill="#0284c7" filter="url(#glow)"/>
-  <ellipse cx="370" cy="160" rx="46" ry="12" fill="none" stroke="#67e8f9" stroke-width="4" transform="rotate(-25 370 160)"/>
+  <!-- Twinkle Stars & Planetary Beads -->
+  <circle cx="95" cy="115" r="4.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="430" cy="120" r="5" fill="#ffd233" opacity="0.9" filter="url(#softGlow)"/>
+  <circle cx="75" cy="380" r="4" fill="#00f0ff" opacity="0.8"/>
+  <circle cx="420" cy="390" r="3.5" fill="#ffffff" opacity="0.75"/>
+  <circle cx="210" cy="80" r="3" fill="#ffffff" opacity="0.7"/>
 
-  <!-- Golden Memory Star -->
-  <polygon points="150,160 162,185 190,188 170,208 175,235 150,222 125,235 130,208 110,188 138,185" fill="#ffd233" filter="url(#glow)"/>
+  <!-- 4-point Sparkle Star -->
+  <path d="M410,195 Q410,215 390,215 Q410,215 410,235 Q410,215 430,215 Q410,215 410,195 Z" fill="#ffffff" filter="url(#softGlow)"/>
+  <path d="M110,240 Q110,252 98,252 Q110,252 110,264 Q110,252 122,252 Q110,252 110,240 Z" fill="#ffd233" opacity="0.85"/>
 
-  <!-- Central Antigravity Hero Rocket Ship -->
-  <g transform="translate(256,270) rotate(-45) translate(-75,-110)" filter="url(#glow)">
-    <!-- Exhaust Flame -->
-    <polygon points="60,190 75,240 90,190" fill="#f59e0b"/>
-    <polygon points="65,190 75,225 85,190" fill="#fef08a"/>
-
-    <!-- Fins -->
-    <path d="M40,150 L20,185 L55,175 Z" fill="#e11d48"/>
-    <path d="M110,150 L130,185 L95,175 Z" fill="#e11d48"/>
-
+  <!-- Mini Playful Rocket (Top-Right Flying Upward) -->
+  <g transform="translate(370, 75) rotate(32)" filter="url(#elementShadow)">
+    <!-- Fire Flame -->
+    <path d="M-6,38 Q0,58 0,65 Q0,58 6,38 Z" fill="url(#fireGrad)"/>
+    <path d="M-3,38 Q0,50 0,54 Q0,50 3,38 Z" fill="#ffffff"/>
+    <!-- Rocket Wings -->
+    <path d="M-18,25 L-6,14 L-6,36 Z" fill="url(#rocketRed)"/>
+    <path d="M18,25 L6,14 L6,36 Z" fill="url(#rocketRed)"/>
     <!-- Rocket Body -->
-    <path d="M75,20 C45,60 45,140 45,180 L105,180 C105,140 105,60 75,20 Z" fill="url(#rocketGrad)"/>
-
-    <!-- Porthole Window -->
-    <circle cx="75" cy="95" r="20" fill="#0f172a" stroke="#ffffff" stroke-width="4"/>
-    <circle cx="75" cy="95" r="14" fill="#38bdf8"/>
-    <circle cx="71" cy="91" r="5" fill="#ffffff" opacity="0.8"/>
+    <path d="M0,-24 C-12,-8 -12,22 -10,38 L10,38 C12,22 12,-8 0,-24 Z" fill="url(#rocketBody)"/>
+    <!-- Rocket Tip -->
+    <path d="M0,-24 C-8,-12 -9,0 0,0 C9,0 8,-12 0,-24 Z" fill="url(#rocketRed)"/>
+    <!-- Rocket Window -->
+    <circle cx="0" cy="14" r="7" fill="#0284c7" stroke="#ffffff" stroke-width="2"/>
+    <circle cx="2" cy="12" r="2" fill="#ffffff" opacity="0.8"/>
   </g>
 
-  <!-- Glowing Emblem Ring -->
-  <circle cx="256" cy="256" r="240" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="3"/>
+  <!-- Musical Stardust Ribbon / Sound Wave Arc -->
+  <path d="M130,340 Q256,410 390,335" fill="none" stroke="#00f0ff" stroke-width="4" stroke-linecap="round" opacity="0.5" filter="url(#softGlow)"/>
+  <circle cx="165" cy="355" r="4.5" fill="#ffd233"/>
+  <circle cx="256" cy="374" r="5.5" fill="#ffffff" filter="url(#softGlow)"/>
+  <circle cx="345" cy="358" r="4.5" fill="#ff2a85"/>
+
+  <!-- ============================================================
+       CENTRAL HERO: ASTRONAUT AYAAN & GLOWING MUSICAL MEMORY STAR
+       ============================================================ -->
+  <g filter="url(#iconShadow)">
+    
+    <!-- Hero Astronaut Ayaan -->
+    <g transform="translate(210, 260)">
+      <!-- Backpack / Life Support Unit -->
+      <rect x="-85" y="-35" width="130" height="110" rx="30" fill="#0f172a" stroke="#00f0ff" stroke-width="4"/>
+      <rect x="-80" y="-30" width="120" height="100" rx="25" fill="#1e293b"/>
+
+      <!-- Body / Space Suit Torso -->
+      <path d="M-55,20 C-55,-10 -25,-15 5,-15 C35,-15 65,-10 65,20 C65,55 50,85 5,85 C-40,85 -55,55 -55,20 Z" fill="url(#suitWhite)"/>
+
+      <!-- Chest Panel & Controls -->
+      <rect x="-24" y="14" width="58" height="42" rx="12" fill="#0f172a" stroke="#00f0ff" stroke-width="2.5"/>
+      <circle cx="-10" cy="28" r="5" fill="#00f0ff" filter="url(#softGlow)"/>
+      <circle cx="6" cy="28" r="5" fill="#ffd233"/>
+      <circle cx="22" cy="28" r="5" fill="#ff2a85"/>
+      <!-- Oxygen status bar -->
+      <rect x="-12" y="42" width="34" height="4" rx="2" fill="#22c55e"/>
+
+      <!-- Arms / Gloves -->
+      <!-- Left Arm (Resting) -->
+      <path d="M-52,10 C-75,25 -75,60 -58,72 C-48,70 -42,50 -44,30 Z" fill="url(#suitWhite)"/>
+      <circle cx="-60" cy="70" r="14" fill="#00f0ff"/>
+      <circle cx="-60" cy="70" r="10" fill="#0284c7"/>
+
+      <!-- Right Arm (Joyfully Waving toward the Star) -->
+      <path d="M52,10 C78,-5 96,15 90,38 C80,38 72,28 58,26 Z" fill="url(#suitWhite)"/>
+      <circle cx="92" cy="35" r="15" fill="#00f0ff"/>
+      <circle cx="92" cy="35" r="11" fill="#0284c7"/>
+
+      <!-- Astronaut Helmet (Big, Friendly, Chibi Proportion) -->
+      <circle cx="5" cy="-62" r="72" fill="url(#suitWhite)" stroke="#e2e8f0" stroke-width="4"/>
+      <!-- Helmet Cyan Collar Ring -->
+      <ellipse cx="5" cy="5" rx="52" ry="14" fill="url(#suitCyan)"/>
+
+      <!-- Helmet Visor (Glossy Golden Bubble) -->
+      <ellipse cx="5" cy="-62" rx="55" ry="46" fill="url(#visorGold)" filter="url(#softGlow)"/>
+
+      <!-- Visor Gloss Reflection Curve -->
+      <path d="M-36,-85 C-15,-98 25,-98 46,-85 C32,-80 5,-80 -18,-80 C-28,-80 -32,-82 -36,-85 Z" fill="#ffffff" opacity="0.75"/>
+      <ellipse cx="-22" cy="-70" rx="12" ry="7" fill="#ffffff" opacity="0.65" transform="rotate(-15 -22 -70)"/>
+
+      <!-- Cute Friendly Visor Smile Reflection -->
+      <path d="M-12,-48 Q5,-38 22,-48" fill="none" stroke="#78350f" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+      <circle cx="-16" cy="-56" r="4" fill="#78350f" opacity="0.5"/>
+      <circle cx="26" cy="-56" r="4" fill="#78350f" opacity="0.5"/>
+
+      <!-- Astronaut Helmet Audio Antenna / Beacon -->
+      <rect x="0" y="-146" width="10" height="20" rx="5" fill="#64748b"/>
+      <circle cx="5" cy="-148" r="9" fill="#00f0ff" filter="url(#softGlow)"/>
+      <circle cx="5" cy="-148" r="4" fill="#ffffff"/>
+    </g>
+
+    <!-- Glowing Musical 3D Star (Floating beside Ayaan) -->
+    <g transform="translate(365, 235)" filter="url(#softGlow)">
+      <!-- Pulsing Aura Ring -->
+      <circle cx="0" cy="0" r="56" fill="none" stroke="#ffd233" stroke-width="3" stroke-dasharray="6 6" opacity="0.6"/>
+      
+      <!-- 5-Point Kawaii 3D Star -->
+      <path d="M0,-46 L13,-14 L46,-12 L20,12 L28,45 L0,27 L-28,45 L-20,12 L-46,-12 L-13,-14 Z" fill="url(#starGold)"/>
+      
+      <!-- Star Inner Highlight -->
+      <path d="M0,-36 L9,-10 L34,-8 L15,10 L20,34 L0,20 Z" fill="#fff9c4" opacity="0.5"/>
+
+      <!-- Kawaii Eyes & Blush -->
+      <circle cx="-10" cy="2" r="4.5" fill="#78350f"/>
+      <circle cx="10" cy="2" r="4.5" fill="#78350f"/>
+      <circle cx="-11" cy="0.5" r="1.5" fill="#ffffff"/>
+      <circle cx="9" cy="0.5" r="1.5" fill="#ffffff"/>
+      <!-- Smile -->
+      <path d="M-5,10 Q0,15 5,10" fill="none" stroke="#78350f" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Rosy Cheeks -->
+      <circle cx="-16" cy="7" r="3.5" fill="#f43f5e" opacity="0.65"/>
+      <circle cx="16" cy="7" r="3.5" fill="#f43f5e" opacity="0.65"/>
+
+      <!-- Musical Note Floating Out of Star -->
+      <g transform="translate(24, -36) scale(0.9)">
+        <path d="M6,0 L16,-4 L16,14 C16,16 13,18 10,18 C7,18 5,16 5,14 C5,12 7,10 10,10 L14,10 L14,2 L8,4 L8,16 C8,18 5,20 2,20 C-1,20 -3,18 -3,16 C-3,14 -1,12 2,12 L6,12 Z" fill="#00f0ff" filter="url(#softGlow)"/>
+      </g>
+    </g>
+
+  </g>
+
+  <!-- App Border Chamfer Highlight -->
+  <rect x="2" y="2" width="508" height="508" rx="114" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="4"/>
+  <rect x="5" y="5" width="502" height="502" rx="111" fill="none" stroke="rgba(0,240,255,0.18)" stroke-width="2"/>
 </svg>

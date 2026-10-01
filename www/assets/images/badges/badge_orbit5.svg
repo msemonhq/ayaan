@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <radialGradient id="badgeGlow6" cx="50%" cy="50%" r="50%">
+      <stop offset="60%" stop-color="#ffd233" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#ff2a85" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="royalPlate" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fdf4ff"/>
+      <stop offset="40%" stop-color="#d946ef"/>
+      <stop offset="100%" stop-color="#701a75"/>
+    </linearGradient>
+    <linearGradient id="crownGold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fffbeb"/>
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="60" cy="60" r="54" fill="url(#badgeGlow6)"/>
+
+  <!-- Royal Outer Disc -->
+  <circle cx="60" cy="60" r="44" fill="url(#royalPlate)" stroke="#4a044e" stroke-width="2.5"/>
+  <circle cx="60" cy="60" r="35" fill="#18021e" stroke="#f0abfc" stroke-width="2"/>
+
+  <!-- Royal Galaxy Crown -->
+  <path d="M 38,72 L 40,50 L 50,60 L 60,42 L 70,60 L 80,50 L 82,72 Z" fill="url(#crownGold)" stroke="#78350f" stroke-width="1.8"/>
+  <rect x="37" y="72" width="46" height="6" rx="2" fill="url(#crownGold)" stroke="#78350f" stroke-width="1.5"/>
+
+  <!-- Crown Jewels -->
+  <circle cx="40" cy="49" r="2.5" fill="#00f0ff"/>
+  <circle cx="60" cy="41" r="3.5" fill="#ff2a85"/>
+  <circle cx="80" cy="49" r="2.5" fill="#00f0ff"/>
+
+  <circle cx="48" cy="75" r="1.5" fill="#ffffff"/>
+  <circle cx="60" cy="75" r="1.8" fill="#ffd233"/>
+  <circle cx="72" cy="75" r="1.5" fill="#ffffff"/>
+</svg>

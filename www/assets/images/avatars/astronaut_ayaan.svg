@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <radialGradient id="helmetGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="60%" stop-color="#ffd233" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#ffd233" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="suitWhite" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="70%" stop-color="#e2e8f0"/>
+      <stop offset="100%" stop-color="#cbd5e1"/>
+    </linearGradient>
+    <linearGradient id="goldTrim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe066"/>
+      <stop offset="50%" stop-color="#ffd233"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="visorGlass" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.25"/>
+      <stop offset="60%" stop-color="#0284c7" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.5"/>
+    </linearGradient>
+    <linearGradient id="skinTone" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffd1a4"/>
+      <stop offset="100%" stop-color="#e09f67"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Ambient Golden Glow -->
+  <circle cx="60" cy="55" r="50" fill="url(#helmetGlow)"/>
+
+  <!-- Spacesuit Shoulders & Collar -->
+  <path d="M 22,118 C 22,96 38,86 60,86 C 82,86 98,96 98,118 Z" fill="url(#suitWhite)" stroke="#94a3b8" stroke-width="2.5"/>
+  <!-- Gold Collar Band -->
+  <path d="M 36,92 C 44,97 76,97 84,92" fill="none" stroke="url(#goldTrim)" stroke-width="5" stroke-linecap="round"/>
+  <!-- Mission Patch -->
+  <rect x="42" y="102" width="14" height="10" rx="3" fill="#0284c7"/>
+  <circle cx="49" cy="107" r="2.5" fill="#ffd233"/>
+
+  <!-- Helmet Outer Shell -->
+  <circle cx="60" cy="50" r="42" fill="url(#suitWhite)" stroke="#94a3b8" stroke-width="2.5"/>
+
+  <!-- Helmet Gold Rim Ring -->
+  <circle cx="60" cy="50" r="36" fill="none" stroke="url(#goldTrim)" stroke-width="4"/>
+
+  <!-- Visor Dark Cosmic Background -->
+  <circle cx="60" cy="50" r="34" fill="#0f172a"/>
+
+  <!-- Ayaan Inside Visor -->
+  <!-- Neck -->
+  <rect x="54" y="62" width="12" height="10" fill="url(#skinTone)"/>
+
+  <!-- Face Head -->
+  <ellipse cx="60" cy="48" rx="20" ry="21" fill="url(#skinTone)"/>
+
+  <!-- Hair (Cute Dark Brown Bangs) -->
+  <path d="M 40,46 C 40,30 48,27 60,27 C 72,27 80,30 80,46 C 76,40 70,44 65,39 C 60,45 54,39 48,44 C 44,40 40,43 40,46 Z" fill="#2d1b0d"/>
+
+  <!-- Ears -->
+  <circle cx="40" cy="49" r="3.5" fill="#e09f67"/>
+  <circle cx="80" cy="49" r="3.5" fill="#e09f67"/>
+
+  <!-- Big Bright Kawaii Eyes -->
+  <ellipse cx="52" cy="47" rx="3.6" ry="4.8" fill="#1e1b18"/>
+  <circle cx="51" cy="45" r="1.5" fill="#ffffff"/>
+  <ellipse cx="68" cy="47" rx="3.6" ry="4.8" fill="#1e1b18"/>
+  <circle cx="67" cy="45" r="1.5" fill="#ffffff"/>
+
+  <!-- Eyebrows -->
+  <path d="M 49 40 Q 53 38 56 41" fill="none" stroke="#2d1b0d" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M 64 41 Q 67 38 71 40" fill="none" stroke="#2d1b0d" stroke-width="1.6" stroke-linecap="round"/>
+
+  <!-- Rosy Cheeks -->
+  <ellipse cx="46" cy="53" rx="3" ry="2" fill="#ff7694" opacity="0.8"/>
+  <ellipse cx="74" cy="53" rx="3" ry="2" fill="#ff7694" opacity="0.8"/>
+
+  <!-- Happy Open Smile -->
+  <path d="M 54,54 Q 60,62 66,54 Z" fill="#c026d3"/>
+  <path d="M 57,58 Q 60,55 63,58" fill="#f472b6"/>
+
+  <!-- Comm Mic -->
+  <path d="M 76,56 Q 72,62 68,61" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="67" cy="61" r="2" fill="#38bdf8"/>
+
+  <!-- Visor Glass Dome & Specular Glare -->
+  <circle cx="60" cy="50" r="34" fill="url(#visorGlass)"/>
+  <path d="M 40,32 C 48,24 64,22 74,27 C 68,26 50,30 42,38 Z" fill="#ffffff" opacity="0.6"/>
+</svg>

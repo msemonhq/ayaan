@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <radialGradient id="badgeGlow3" cx="50%" cy="50%" r="50%">
+      <stop offset="60%" stop-color="#ff763b" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ff763b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bronzePlate" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fed7aa"/>
+      <stop offset="45%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#7c2d12"/>
+    </linearGradient>
+    <linearGradient id="orbitRocket" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="60%" stop-color="#ff2a85"/>
+      <stop offset="100%" stop-color="#991b1b"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="60" cy="60" r="54" fill="url(#badgeGlow3)"/>
+
+  <!-- Medal Shield/Circle -->
+  <circle cx="60" cy="60" r="42" fill="url(#bronzePlate)" stroke="#431407" stroke-width="2.5"/>
+  <circle cx="60" cy="60" r="34" fill="#0c0a27" stroke="#fdba74" stroke-width="2"/>
+
+  <!-- Orbital Path -->
+  <ellipse cx="60" cy="60" rx="28" ry="14" fill="none" stroke="#38bdf8" stroke-width="2" transform="rotate(-30 60 60)"/>
+
+  <!-- Mini Planet in Center -->
+  <circle cx="56" cy="62" r="10" fill="#0284c7"/>
+  <circle cx="54" cy="60" r="8" fill="#38bdf8" opacity="0.6"/>
+
+  <!-- Rocket on Orbit -->
+  <g transform="translate(68, 42) rotate(45)">
+    <path d="M 0,-14 L 6,6 L -6,6 Z" fill="url(#orbitRocket)"/>
+    <polygon points="0,6 4,14 -4,14" fill="#ffd233"/>
+    <circle cx="0" cy="-2" r="2.5" fill="#38bdf8"/>
+  </g>
+</svg>

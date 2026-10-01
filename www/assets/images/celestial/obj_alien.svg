@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <radialGradient id="alienGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="60%" stop-color="#a855f7" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#a855f7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="alienSkin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d8b4fe"/>
+      <stop offset="40%" stop-color="#c084fc"/>
+      <stop offset="100%" stop-color="#9333ea"/>
+    </linearGradient>
+    <linearGradient id="orbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#67e8f9"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Ambient Glow -->
+  <circle cx="60" cy="60" r="54" fill="url(#alienGlow)"/>
+
+  <!-- Antennas with Glowing Orbs -->
+  <path d="M 44,45 C 32,32 30,18 36,14" fill="none" stroke="#9333ea" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="36" cy="14" r="6" fill="url(#orbGrad)" stroke="#ffffff" stroke-width="1.5"/>
+
+  <path d="M 76,45 C 88,32 90,18 84,14" fill="none" stroke="#9333ea" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="84" cy="14" r="6" fill="url(#orbGrad)" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Little Alien Body & Feet -->
+  <ellipse cx="60" cy="88" rx="22" ry="16" fill="url(#alienSkin)" stroke="#7e22ce" stroke-width="2"/>
+  <ellipse cx="48" cy="98" rx="8" ry="5" fill="#7e22ce"/>
+  <ellipse cx="72" cy="98" rx="8" ry="5" fill="#7e22ce"/>
+
+  <!-- Cute Waving Hand -->
+  <path d="M 82,78 C 96,70 102,62 98,58 C 94,54 88,64 80,72" fill="url(#alienSkin)" stroke="#7e22ce" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Big Alien Head -->
+  <ellipse cx="60" cy="56" rx="36" ry="30" fill="url(#alienSkin)" stroke="#7e22ce" stroke-width="2.5"/>
+
+  <!-- Forehead Galaxy Speckles -->
+  <circle cx="54" cy="36" r="1.5" fill="#ffffff" opacity="0.8"/>
+  <circle cx="60" cy="33" r="2" fill="#ffffff" opacity="0.9"/>
+  <circle cx="67" cy="36" r="1.5" fill="#ffffff" opacity="0.8"/>
+
+  <!-- Big Shiny Kawaii Eyes -->
+  <ellipse cx="46" cy="54" rx="7.5" ry="10" fill="#1e1035"/>
+  <circle cx="44" cy="50" r="3.2" fill="#ffffff"/>
+  <circle cx="48" cy="58" r="1.6" fill="#ffffff"/>
+
+  <ellipse cx="74" cy="54" rx="7.5" ry="10" fill="#1e1035"/>
+  <circle cx="72" cy="50" r="3.2" fill="#ffffff"/>
+  <circle cx="76" cy="58" r="1.6" fill="#ffffff"/>
+
+  <!-- Rosy Cheeks -->
+  <ellipse cx="36" cy="64" rx="4.5" ry="3" fill="#ff7694" opacity="0.85"/>
+  <ellipse cx="84" cy="64" rx="4.5" ry="3" fill="#ff7694" opacity="0.85"/>
+
+  <!-- Big Happy Open Mouth -->
+  <path d="M 52,64 Q 60,76 68,64 Z" fill="#e11d48"/>
+  <path d="M 56,69 Q 60,65 64,69" fill="#fda4af"/>
+</svg>

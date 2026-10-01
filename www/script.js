@@ -8,8 +8,63 @@
   'use strict';
 
   /* ==========================================================================
-     1. Sound Synthesizer (Web Audio API)
-     Switchable Sound Packs: Bells 🔔, Cosmic Piano 🎹, Space Synth 🚀
+     0. Haptics Manager (Capacitor Native Haptics with Web Fallback)
+     Tactile micro-feedback engineered for young sensory development
+     ========================================================================== */
+  class HapticsManager {
+    constructor() {
+      this.enabled = localStorage.getItem('ayaan_haptics') !== 'false';
+    }
+
+    async tapLight() {
+      if (!this.enabled) return;
+      try {
+        if (window.Capacitor?.isPluginAvailable('Haptics')) {
+          await window.Capacitor.Plugins.Haptics.impact({ style: 'LIGHT' });
+        } else if (navigator.vibrate) {
+          navigator.vibrate(15);
+        }
+      } catch (e) {}
+    }
+
+    async tapMedium() {
+      if (!this.enabled) return;
+      try {
+        if (window.Capacitor?.isPluginAvailable('Haptics')) {
+          await window.Capacitor.Plugins.Haptics.impact({ style: 'MEDIUM' });
+        } else if (navigator.vibrate) {
+          navigator.vibrate(30);
+        }
+      } catch (e) {}
+    }
+
+    async success() {
+      if (!this.enabled) return;
+      try {
+        if (window.Capacitor?.isPluginAvailable('Haptics')) {
+          await window.Capacitor.Plugins.Haptics.notification({ type: 'SUCCESS' });
+        } else if (navigator.vibrate) {
+          navigator.vibrate([30, 40, 60]);
+        }
+      } catch (e) {}
+    }
+
+    async gentleWarning() {
+      if (!this.enabled) return;
+      try {
+        if (window.Capacitor?.isPluginAvailable('Haptics')) {
+          await window.Capacitor.Plugins.Haptics.notification({ type: 'WARNING' });
+        } else if (navigator.vibrate) {
+          navigator.vibrate([20, 30, 20]);
+        }
+      } catch (e) {}
+    }
+  }
+
+  /* ==========================================================================
+     1. Studio Sound & Synthesizer Engine (Web Audio API)
+     Multi-Sampled Packs: Bells 🔔, Cosmic Piano 🎹, Kalimba 🪵, Retro Synth 🚀
+     Tactile Bubble Pops, Fanfares & Low-Latency AudioBuffers
      ========================================================================== */
   class SoundManager {
     constructor() {
@@ -17,6 +72,9 @@
       this.muted = localStorage.getItem('ayaan_muted') === 'true';
       this.soundPack = localStorage.getItem('ayaan_sound_pack') || 'bells';
       this.frequencies = [523.25, 587.33, 659.25, 783.99, 880.00, 1046.50, 1174.66, 1318.51]; // C5 to E6 Pentatonic
+      this.noteNames = ['c5', 'd5', 'e5', 'g5', 'a5', 'c6', 'd6', 'e6'];
+      this.bufferCache = new Map();
+      this.preloadAudio();
     }
 
     init() {
@@ -31,6 +89,53 @@
       }
     }
 
+    async preloadAudio() {
+      if (!window.fetch) return;
+
+      const toLoad = [
+        { key: 'sfx_pop_1', url: 'assets/audio/sfx/pop_bubble_1.wav' },
+        { key: 'sfx_pop_2', url: 'assets/audio/sfx/pop_bubble_2.wav' },
+        { key: 'sfx_pop_3', url: 'assets/audio/sfx/pop_bubble_3.wav' },
+        { key: 'sfx_fanfare', url: 'assets/audio/sfx/badge_fanfare.wav' },
+        { key: 'sfx_hint', url: 'assets/audio/sfx/hint_peek.wav' },
+      ];
+
+      ['bells', 'piano', 'kalimba'].forEach((pack) => {
+        this.noteNames.forEach((note) => {
+          toLoad.push({ key: `${pack}_${note}`, url: `assets/audio/instruments/${pack}/${note}.wav` });
+        });
+      });
+
+      for (const item of toLoad) {
+        try {
+          const resp = await fetch(item.url);
+          if (resp.ok) {
+            const arr = await resp.arrayBuffer();
+            this.init();
+            if (this.ctx) {
+              const audioBuf = await this.ctx.decodeAudioData(arr);
+              this.bufferCache.set(item.key, audioBuf);
+            }
+          }
+        } catch (e) {}
+      }
+    }
+
+    playBuffer(buf, volume = 1.0) {
+      if (this.muted || !buf) return;
+      this.init();
+      if (!this.ctx) return;
+      try {
+        const source = this.ctx.createBufferSource();
+        source.buffer = buf;
+        const gainNode = this.ctx.createGain();
+        gainNode.gain.setValueAtTime(volume, this.ctx.currentTime);
+        source.connect(gainNode);
+        gainNode.connect(this.ctx.destination);
+        source.start(0);
+      } catch (e) {}
+    }
+
     toggleMute() {
       this.muted = !this.muted;
       localStorage.setItem('ayaan_muted', this.muted);
@@ -38,7 +143,7 @@
     }
 
     cycleSoundPack() {
-      const packs = ['bells', 'piano', 'synth'];
+      const packs = ['bells', 'piano', 'kalimba', 'synth'];
       const currentIndex = packs.indexOf(this.soundPack);
       this.soundPack = packs[(currentIndex + 1) % packs.length];
       localStorage.setItem('ayaan_sound_pack', this.soundPack);
@@ -48,6 +153,7 @@
 
     getSoundPackIcon() {
       if (this.soundPack === 'piano') return '🎹';
+      if (this.soundPack === 'kalimba') return '🪵';
       if (this.soundPack === 'synth') return '🚀';
       return '🔔';
     }
@@ -57,11 +163,20 @@
       this.init();
       if (!this.ctx) return;
 
-      const freq = this.frequencies[Math.abs(index) % this.frequencies.length];
+      const noteIdx = Math.abs(index) % this.noteNames.length;
+      const noteName = this.noteNames[noteIdx];
+      const cachedBuf = this.bufferCache.get(`${this.soundPack}_${noteName}`);
+
+      if (cachedBuf) {
+        this.playBuffer(cachedBuf, 0.85);
+        return;
+      }
+
+      // Procedural oscillator fallback (or for synth pack)
+      const freq = this.frequencies[noteIdx];
       const now = this.ctx.currentTime;
 
       if (this.soundPack === 'piano') {
-        // Warm acoustic piano
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
         osc.type = 'triangle';
@@ -74,7 +189,6 @@
 
         gain.gain.setValueAtTime(0.35, now);
         gain.gain.exponentialRampToValueAtTime(0.0001, now + duration * 1.2);
-
         gainSub.gain.setValueAtTime(0.2, now);
         gainSub.gain.exponentialRampToValueAtTime(0.0001, now + duration);
 
@@ -88,7 +202,6 @@
         oscSub.start(now);
         oscSub.stop(now + duration);
       } else if (this.soundPack === 'synth') {
-        // Space retro synth
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
         osc.type = 'sawtooth';
@@ -103,7 +216,7 @@
         osc.start(now);
         osc.stop(now + duration * 0.9);
       } else {
-        // Default: Sparkling Crystal Bells
+        // Sparkling Crystal Bells
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
         osc.type = 'sine';
@@ -116,7 +229,6 @@
 
         gain.gain.setValueAtTime(0.3, now);
         gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-
         gain2.gain.setValueAtTime(0.12, now);
         gain2.gain.exponentialRampToValueAtTime(0.0001, now + duration * 0.7);
 
@@ -137,10 +249,19 @@
       this.init();
       if (!this.ctx) return;
 
+      const popKeys = ['sfx_pop_1', 'sfx_pop_2', 'sfx_pop_3'];
+      const randomKey = popKeys[Math.floor(Math.random() * popKeys.length)];
+      const buf = this.bufferCache.get(randomKey);
+
+      if (buf) {
+        this.playBuffer(buf, 0.9);
+        return;
+      }
+
+      // Fallback procedural pop
       const now = this.ctx.currentTime;
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
-
       osc.type = 'sine';
       osc.frequency.setValueAtTime(400, now);
       osc.frequency.exponentialRampToValueAtTime(950, now + 0.1);
@@ -152,6 +273,16 @@
       gain.connect(this.ctx.destination);
       osc.start(now);
       osc.stop(now + 0.1);
+    }
+
+    playHintPeek() {
+      if (this.muted) return;
+      const buf = this.bufferCache.get('sfx_hint');
+      if (buf) {
+        this.playBuffer(buf, 0.85);
+      } else {
+        this.playTone(3, 0.25);
+      }
     }
 
     playGentleRetry() {
@@ -172,7 +303,6 @@
 
       osc.connect(gain);
       gain.connect(this.ctx.destination);
-
       osc.start(now);
       osc.stop(now + 0.35);
     }
@@ -190,13 +320,11 @@
 
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(freq, now);
-
         gain.gain.setValueAtTime(0.25, now);
         gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.4);
 
         osc.connect(gain);
         gain.connect(this.ctx.destination);
-
         osc.start(now);
         osc.stop(now + 0.4);
       });
@@ -204,9 +332,14 @@
 
     playBadgeFanfare() {
       if (this.muted) return;
+      const buf = this.bufferCache.get('sfx_fanfare');
+      if (buf) {
+        this.playBuffer(buf, 0.95);
+        return;
+      }
+
       this.init();
       if (!this.ctx) return;
-
       const chords = [523.25, 659.25, 783.99, 1046.50];
       chords.forEach((freq) => {
         const now = this.ctx.currentTime;
@@ -215,16 +348,155 @@
 
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(freq, now);
-
         gain.gain.setValueAtTime(0.2, now);
         gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.6);
 
         osc.connect(gain);
         gain.connect(this.ctx.destination);
-
         osc.start(now);
         osc.stop(now + 0.6);
       });
+    }
+  }
+
+  /* ==========================================================================
+     1.5 Voice Companion (Spoken Pre-Reader Guidance with Web Speech Fallback)
+     Warm, enthusiastic companion voice tailored for Astronaut Ayaan
+     ========================================================================== */
+  class VoiceCompanion {
+    constructor(soundManager) {
+      this.sound = soundManager;
+      this.enabled = localStorage.getItem('ayaan_voice_enabled') !== 'false';
+      this.bufferCache = new Map();
+      this.clips = {
+        ready: { file: 'assets/audio/voices/vo_ready_ayaan.wav', text: "Get ready, Astronaut Ayaan!" },
+        listen: { file: 'assets/audio/voices/vo_listen_melody.wav', text: "Listen carefully to the melody!" },
+        your_turn: { file: 'assets/audio/voices/vo_your_turn.wav', text: "Your turn! Tap the stars!" },
+        almost: { file: 'assets/audio/voices/vo_almost_there.wav', text: "Almost there! Let's listen together again!" },
+        orbit_complete: { file: 'assets/audio/voices/vo_orbit_complete.wav', text: "Super job, Ayaan! Orbit Complete!" },
+        star_rush: { file: 'assets/audio/voices/vo_star_rush_start.wav', text: "Star Rush! Pop as many stars as you can!" },
+        badge: { file: 'assets/audio/voices/vo_badge_unlocked.wav', text: "Wow! You unlocked a new Space Trophy!" }
+      };
+      this.preloadClips();
+    }
+
+    async preloadClips() {
+      if (!window.fetch) return;
+      for (const [key, item] of Object.entries(this.clips)) {
+        try {
+          const resp = await fetch(item.file);
+          if (resp.ok) {
+            const arr = await resp.arrayBuffer();
+            this.sound.init();
+            if (this.sound.ctx) {
+              const audioBuf = await this.sound.ctx.decodeAudioData(arr);
+              this.bufferCache.set(key, audioBuf);
+            }
+          }
+        } catch (e) {}
+      }
+    }
+
+    toggleVoice() {
+      this.enabled = !this.enabled;
+      localStorage.setItem('ayaan_voice_enabled', this.enabled.toString());
+      return this.enabled;
+    }
+
+    speak(cueKey) {
+      if (!this.enabled || this.sound.muted) return;
+      const clip = this.clips[cueKey];
+      if (!clip) return;
+
+      // Try pre-recorded WAV buffer first
+      const buf = this.bufferCache.get(cueKey);
+      if (buf && this.sound.ctx) {
+        this.sound.playBuffer(buf, 0.95);
+        return;
+      }
+
+      // Try HTML5 Audio fallback
+      try {
+        const audio = new Audio(clip.file);
+        audio.volume = 0.95;
+        audio.play().catch(() => this.speakWebSpeech(clip.text));
+        return;
+      } catch (e) {}
+
+      // Fallback: Web Speech API (Google TTS in Android / browser)
+      this.speakWebSpeech(clip.text);
+    }
+
+    speakWebSpeech(text) {
+      if (!window.speechSynthesis) return;
+      try {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 1.05;
+        utterance.pitch = 1.25; // Friendly, warm, slightly higher pitch for kids
+        utterance.volume = 1.0;
+        window.speechSynthesis.speak(utterance);
+      } catch (e) {}
+    }
+  }
+
+  /* ==========================================================================
+     1.8 Lottie Vector Animation Manager (60-120fps Offline Vector Celebrations)
+     ========================================================================== */
+  class LottieManager {
+    constructor() {
+      this.animations = new Map();
+      this.available = typeof window.lottie !== 'undefined';
+    }
+
+    play(containerId, path, loop = true) {
+      const container = document.getElementById(containerId);
+      if (!container) return null;
+
+      // Clean up existing animation
+      this.stop(containerId);
+
+      if (!this.available && typeof window.lottie !== 'undefined') {
+        this.available = true;
+      }
+
+      if (!this.available) {
+        // Reveal fallback emoji if lottie is unavailable
+        const parent = container.parentElement;
+        if (parent) {
+          const fallback = parent.querySelector('.fallback-badge');
+          if (fallback) fallback.style.display = 'inline-block';
+        }
+        return null;
+      }
+
+      try {
+        const anim = window.lottie.loadAnimation({
+          container: container,
+          renderer: 'svg',
+          loop: loop,
+          autoplay: true,
+          path: path
+        });
+        this.animations.set(containerId, anim);
+        return anim;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    stop(containerId) {
+      if (this.animations.has(containerId)) {
+        try {
+          const anim = this.animations.get(containerId);
+          anim.destroy();
+        } catch (e) {}
+        this.animations.delete(containerId);
+      }
+      const container = document.getElementById(containerId);
+      if (container) {
+        container.innerHTML = '';
+      }
     }
   }
 
@@ -359,14 +631,14 @@
      3. Expanded Celestial Presets (8 Friendly Space Wonders)
      ========================================================================== */
   const CELESTIAL_PRESETS = [
-    { id: 0, name: 'Star', icon: '⭐', class: 'obj-star', color: '#ffd233' },
-    { id: 1, name: 'Planet', icon: '🪐', class: 'obj-planet', color: '#00f0ff' },
-    { id: 2, name: 'Moon', icon: '🌙', class: 'obj-moon', color: '#bd7aff' },
-    { id: 3, name: 'Comet', icon: '☄️', class: 'obj-comet', color: '#ff763b' },
-    { id: 4, name: 'Crystal', icon: '💎', class: 'obj-crystal', color: '#00f5a0' },
-    { id: 5, name: 'Rocket', icon: '🚀', class: 'obj-rocket', color: '#ff2a85' },
-    { id: 6, name: 'UFO', icon: '🛸', class: 'obj-ufo', color: '#38bdf8' },
-    { id: 7, name: 'Alien', icon: '👾', class: 'obj-alien', color: '#a855f7' },
+    { id: 0, name: 'Star', icon: '⭐', svg: 'assets/images/celestial/obj_star.svg', class: 'obj-star', color: '#ffd233' },
+    { id: 1, name: 'Planet', icon: '🪐', svg: 'assets/images/celestial/obj_planet.svg', class: 'obj-planet', color: '#00f0ff' },
+    { id: 2, name: 'Moon', icon: '🌙', svg: 'assets/images/celestial/obj_moon.svg', class: 'obj-moon', color: '#bd7aff' },
+    { id: 3, name: 'Comet', icon: '☄️', svg: 'assets/images/celestial/obj_comet.svg', class: 'obj-comet', color: '#ff763b' },
+    { id: 4, name: 'Crystal', icon: '💎', svg: 'assets/images/celestial/obj_crystal.svg', class: 'obj-crystal', color: '#00f5a0' },
+    { id: 5, name: 'Rocket', icon: '🚀', svg: 'assets/images/celestial/obj_rocket.svg', class: 'obj-rocket', color: '#ff2a85' },
+    { id: 6, name: 'UFO', icon: '🛸', svg: 'assets/images/celestial/obj_ufo.svg', class: 'obj-ufo', color: '#38bdf8' },
+    { id: 7, name: 'Alien', icon: '👾', svg: 'assets/images/celestial/obj_alien.svg', class: 'obj-alien', color: '#a855f7' },
   ];
 
   /* ==========================================================================
@@ -382,12 +654,12 @@
   };
 
   const BADGES_CONFIG = [
-    { id: 'badge_orbit1', icon: '🎖️', title: 'Cadet Launch', desc: 'Clear Orbit 1' },
-    { id: 'badge_notes4', icon: '🎶', title: 'Melody Maestro', desc: 'Clear a 4-note melody' },
-    { id: 'badge_orbit3', icon: '🚀', title: 'Deep Space Cadet', desc: 'Reach & Clear Orbit 3' },
-    { id: 'badge_stars30', icon: '⭐', title: 'Star Hunter', desc: 'Collect 30 Cosmic Stars' },
-    { id: 'badge_starrush', icon: '🛸', title: 'Star Popper', desc: 'Pop 10 stars in Star Rush' },
-    { id: 'badge_orbit5', icon: '👑', title: 'Galaxy Legend', desc: 'Reach & Clear Orbit 5' },
+    { id: 'badge_orbit1', icon: '🎖️', svg: 'assets/images/badges/badge_orbit1.svg', title: 'Cadet Launch', desc: 'Clear Orbit 1' },
+    { id: 'badge_notes4', icon: '🎶', svg: 'assets/images/badges/badge_notes4.svg', title: 'Melody Maestro', desc: 'Clear a 4-note melody' },
+    { id: 'badge_orbit3', icon: '🚀', svg: 'assets/images/badges/badge_orbit3.svg', title: 'Deep Space Cadet', desc: 'Reach & Clear Orbit 3' },
+    { id: 'badge_stars30', icon: '⭐', svg: 'assets/images/badges/badge_stars30.svg', title: 'Star Hunter', desc: 'Collect 30 Cosmic Stars' },
+    { id: 'badge_starrush', icon: '🛸', svg: 'assets/images/badges/badge_starrush.svg', title: 'Star Popper', desc: 'Pop 10 stars in Star Rush' },
+    { id: 'badge_orbit5', icon: '👑', svg: 'assets/images/badges/badge_orbit5.svg', title: 'Galaxy Legend', desc: 'Reach & Clear Orbit 5' },
   ];
 
   /* ==========================================================================
@@ -418,7 +690,10 @@
 
       el.innerHTML = `
         <div class="body-inner">
-          <span class="object-icon">${this.preset.icon}</span>
+          <div class="object-graphic">
+            <img src="${this.preset.svg}" alt="${this.preset.name}" class="celestial-svg" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+            <span class="object-icon fallback-icon" style="display: none;">${this.preset.icon}</span>
+          </div>
           <span class="object-label">${this.preset.name}</span>
         </div>
       `;
@@ -541,6 +816,8 @@
       this.instrumentIcon = document.getElementById('instrumentIcon');
       this.soundToggleBtn = document.getElementById('soundToggleBtn');
       this.soundIcon = document.getElementById('soundIcon');
+      this.voiceToggleBtn = document.getElementById('voiceToggleBtn');
+      this.voiceIcon = document.getElementById('voiceIcon');
       this.hintBtn = document.getElementById('hintBtn');
       this.trophyBtn = document.getElementById('trophyBtn');
       this.homeBtn = document.getElementById('homeBtn');
@@ -570,7 +847,11 @@
 
       // Systems
       this.sound = new SoundManager();
+      this.voice = new VoiceCompanion(this.sound);
+      this.haptics = new HapticsManager();
+      this.lottie = new LottieManager();
       this.fx = new ParticleFX(document.getElementById('particleCanvas'));
+      this.rocketLaunchOverlay = document.getElementById('rocketLaunchOverlay');
 
       // Persistent State
       this.totalStars = parseInt(localStorage.getItem('ayaan_total_stars') || '0', 10);
@@ -601,73 +882,102 @@
     initEvents() {
       // Instrument cycle button
       this.instrumentBtn.addEventListener('click', () => {
+        this.haptics.tapLight();
         this.sound.cycleSoundPack();
         this.instrumentIcon.textContent = this.sound.getSoundPackIcon();
       });
 
       // Sound mute toggle
       this.soundToggleBtn.addEventListener('click', () => {
+        this.haptics.tapLight();
         this.sound.toggleMute();
         this.updateSoundIcon();
       });
 
+      // Voice Companion toggle
+      if (this.voiceToggleBtn) {
+        this.voiceToggleBtn.addEventListener('click', () => {
+          this.haptics.tapLight();
+          const isEnabled = this.voice.toggleVoice();
+          this.updateVoiceIcon();
+          this.setPrompt('🗣️', isEnabled ? 'Voice Companion: ON!' : 'Voice Companion: OFF!');
+        });
+      }
+
       // Home / Map Button
       this.homeBtn.addEventListener('click', () => {
+        this.haptics.tapLight();
         if (this.orbitMapScreen.classList.contains('hidden')) {
           this.showGalaxyMap();
         } else {
-          this.startOrbit(this.currentOrbit);
+          this.startOrbit(this.currentOrbit, true);
         }
       });
 
       // Trophy Badges Button
       this.trophyBtn.addEventListener('click', () => {
+        this.haptics.tapLight();
         this.showBadgesModal();
       });
 
       this.closeBadgesBtn.addEventListener('click', () => {
+        this.haptics.tapLight();
         this.badgeModal.classList.add('hidden');
+        this.lottie.stop('badgeModalLottie');
       });
 
       // Hint Replay Button
       this.hintBtn.addEventListener('click', () => {
+        this.haptics.tapLight();
         if (!this.isShowingSequence && !this.isStarRushActive && this.sequence.length > 0) {
+          this.sound.playHintPeek();
           this.setPrompt('👀', 'Watch the melody once more, Ayaan!');
+          this.voice.speak('listen');
           this.playSequenceDemo();
         }
       });
 
       // Quick Play Button on Galaxy Map
       this.quickPlayBtn.addEventListener('click', () => {
-        this.startOrbit(this.currentOrbit);
+        this.haptics.tapLight();
+        this.startOrbit(this.currentOrbit, true);
       });
 
       // Star Rush Button on Galaxy Map
       this.startStarRushBtn.addEventListener('click', () => {
+        this.haptics.tapLight();
         this.startStarRush();
       });
 
       // Celebration Modal
       this.nextLevelBtn.addEventListener('click', () => {
+        this.haptics.tapLight();
         this.celebrationModal.classList.add('hidden');
+        this.lottie.stop('celebrationLottie');
         const nextOrbit = Math.min(6, this.currentOrbit + 1);
-        this.startOrbit(nextOrbit);
+        this.startOrbit(nextOrbit, true);
       });
 
       this.celebrationMapBtn.addEventListener('click', () => {
+        this.haptics.tapLight();
         this.celebrationModal.classList.add('hidden');
+        this.lottie.stop('celebrationLottie');
         this.showGalaxyMap();
       });
 
       // Star Rush End Modal
       this.playStarRushAgainBtn.addEventListener('click', () => {
+        this.haptics.tapLight();
         this.starRushEndModal.classList.add('hidden');
+        this.lottie.stop('starRushLottie');
         this.startStarRush();
       });
 
       this.starRushBackBtn.addEventListener('click', () => {
+        this.haptics.tapLight();
         this.starRushEndModal.classList.add('hidden');
-        this.startOrbit(this.currentOrbit);
+        this.lottie.stop('starRushLottie');
+        this.startOrbit(this.currentOrbit, true);
       });
 
       // Window resize
@@ -699,10 +1009,17 @@
       this.quickPlayLevelNum.textContent = this.currentOrbit;
       this.instrumentIcon.textContent = this.sound.getSoundPackIcon();
       this.updateSoundIcon();
+      this.updateVoiceIcon();
     }
 
     updateSoundIcon() {
       this.soundIcon.textContent = this.sound.muted ? '🔇' : '🔊';
+    }
+
+    updateVoiceIcon() {
+      if (this.voiceIcon) {
+        this.voiceIcon.textContent = this.voice.enabled ? '🗣️' : '🔇';
+      }
     }
 
     addStars(count) {
@@ -758,7 +1075,7 @@
       this.renderOrbitsGrid();
     }
 
-    startOrbit(orbitNum) {
+    startOrbit(orbitNum, fromLaunch = false) {
       if (this.isStarRushActive) this.stopStarRush();
       this.currentOrbit = orbitNum;
       localStorage.setItem('ayaan_current_orbit', this.currentOrbit.toString());
@@ -773,6 +1090,21 @@
 
       this.updateHUD();
       this.updateChamberBounds();
+
+      // Full-screen Rocket Launch animation if transitioning into orbit
+      if (fromLaunch && this.rocketLaunchOverlay) {
+        this.rocketLaunchOverlay.classList.remove('hidden');
+        this.rocketLaunchOverlay.style.opacity = '1';
+        this.lottie.play('rocketLaunchLottie', 'assets/lottie/lottie_rocket_launch.json', false);
+        this.haptics.tapMedium();
+        setTimeout(() => {
+          this.rocketLaunchOverlay.style.opacity = '0';
+          setTimeout(() => {
+            this.rocketLaunchOverlay.classList.add('hidden');
+            this.lottie.stop('rocketLaunchLottie');
+          }, 350);
+        }, 850);
+      }
 
       const config = ORBITS_CONFIG[this.currentOrbit] || ORBITS_CONFIG[1];
       this.levelNameTag.textContent = config.name;
@@ -798,10 +1130,12 @@
       this.renderTracker(config.seqLen, 0);
 
       // Play demonstration
+      const demoDelay = fromLaunch ? 1200 : 650;
       setTimeout(() => {
         this.setPrompt('👀', 'Watch the glowing space melody, Ayaan!');
+        this.voice.speak('listen');
         this.playSequenceDemo();
-      }, 650);
+      }, demoDelay);
     }
 
     async playSequenceDemo() {
@@ -828,15 +1162,15 @@
 
       this.isShowingSequence = false;
       this.setPrompt('👆', "Ayaan's turn! Tap the melody!");
+      this.voice.speak('your_turn');
     }
 
     handlePlayerMemoryTap(tappedId, element, body) {
       const expectedId = this.sequence[this.playerStep];
 
-      if (navigator.vibrate) navigator.vibrate(30);
-
       if (tappedId === expectedId) {
         // Correct tap!
+        this.haptics.tapLight();
         this.sound.playTone(tappedId);
         element.classList.add('tap-correct');
         this.triggerSparkle(body, 22);
@@ -851,7 +1185,9 @@
         }
       } else {
         // Gentle retry without penalty
+        this.haptics.gentleWarning();
         this.sound.playGentleRetry();
+        this.voice.speak('almost');
         element.classList.add('tap-wobble');
         setTimeout(() => element.classList.remove('tap-wobble'), 650);
 
@@ -867,7 +1203,9 @@
       const starsEarned = this.sequence.length * 2;
       this.addStars(starsEarned);
 
+      this.haptics.success();
       this.sound.playCelebration();
+      this.voice.speak('orbit_complete');
       this.fx.confettiBurst();
       this.setPrompt('🏆', 'Brilliant, Super Astronaut Ayaan!');
 
@@ -880,6 +1218,7 @@
       setTimeout(() => {
         this.celebrationTitle.textContent = `Orbit ${this.currentOrbit} Mastered!`;
         this.celebrationMessage.textContent = `Ayaan remembered all ${this.sequence.length} floating musical wonders!`;
+        this.lottie.play('celebrationLottie', 'assets/lottie/lottie_astronaut_celebrate.json', true);
         this.celebrationModal.classList.remove('hidden');
       }, 950);
     }
@@ -901,6 +1240,7 @@
 
       this.updateChamberBounds();
       this.setPrompt('✨', 'POP AS MANY FLOATING STARS AS YOU CAN!');
+      this.voice.speak('star_rush');
 
       // Spawn drifting bonus stars & gems
       this.physicsWorld.innerHTML = '';
@@ -935,7 +1275,7 @@
     }
 
     handleStarRushPop(body) {
-      if (navigator.vibrate) navigator.vibrate(40);
+      this.haptics.tapMedium();
       this.sound.playPop();
       this.fx.rainbowBurst(body.x, body.y, 24);
 
@@ -958,10 +1298,12 @@
 
     endStarRush() {
       this.stopStarRush();
+      this.haptics.success();
       this.sound.playCelebration();
       this.fx.confettiBurst();
 
       this.starRushPoppedCount.textContent = this.starRushPopped;
+      this.lottie.play('starRushLottie', 'assets/lottie/lottie_trophy_unlock.json', true);
       this.starRushEndModal.classList.remove('hidden');
     }
 
@@ -982,7 +1324,8 @@
           <div class="orbit-stars-pill">⭐ +${cfg.seqLen * 2} Stars</div>
         `;
         card.addEventListener('click', () => {
-          this.startOrbit(orbitNum);
+          this.haptics.tapLight();
+          this.startOrbit(orbitNum, true);
         });
         this.orbitsGrid.appendChild(card);
       });
@@ -999,7 +1342,9 @@
       if (this.unlockedBadges.includes(badgeId)) return;
       this.unlockedBadges.push(badgeId);
       localStorage.setItem('ayaan_badges', JSON.stringify(this.unlockedBadges));
+      this.haptics.success();
       this.sound.playBadgeFanfare();
+      this.voice.speak('badge');
       this.fx.confettiBurst();
 
       const badge = BADGES_CONFIG.find((b) => b.id === badgeId);
@@ -1015,7 +1360,10 @@
         const item = document.createElement('div');
         item.className = `badge-item${isUnlocked ? ' unlocked' : ''}`;
         item.innerHTML = `
-          <span class="badge-icon">${badge.icon}</span>
+          <div class="badge-graphic">
+            <img src="${badge.svg}" alt="${badge.title}" class="badge-svg" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+            <span class="badge-icon fallback-icon" style="display: none;">${badge.icon}</span>
+          </div>
           <div class="badge-info">
             <div class="badge-title">${badge.title}</div>
             <div class="badge-desc">${badge.desc}</div>
@@ -1024,6 +1372,7 @@
         `;
         this.badgesListContainer.appendChild(item);
       });
+      this.lottie.play('badgeModalLottie', 'assets/lottie/lottie_trophy_unlock.json', false);
       this.badgeModal.classList.remove('hidden');
     }
 

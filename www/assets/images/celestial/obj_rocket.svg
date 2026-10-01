@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <radialGradient id="rocketGlow" cx="50%" cy="40%" r="50%">
+      <stop offset="60%" stop-color="#ff2a85" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ff2a85" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="rocketBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff65a5"/>
+      <stop offset="50%" stop-color="#ff2a85"/>
+      <stop offset="100%" stop-color="#b8004f"/>
+    </linearGradient>
+    <linearGradient id="finGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <linearGradient id="flameGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="30%" stop-color="#ffd233"/>
+      <stop offset="80%" stop-color="#ff4500"/>
+      <stop offset="100%" stop-color="#ff4500" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Ambient Glow -->
+  <circle cx="60" cy="55" r="50" fill="url(#rocketGlow)"/>
+
+  <!-- Exhaust Flames -->
+  <path d="M 52,90 Q 60,118 68,90 Z" fill="url(#flameGrad)"/>
+  <path d="M 55,90 Q 60,108 65,90 Z" fill="#ffffff" opacity="0.9"/>
+
+  <!-- Side Wings / Fins -->
+  <path d="M 40,65 C 30,75 22,86 24,90 C 32,90 40,84 44,78 Z" fill="url(#finGrad)" stroke="#0284c7" stroke-width="1.5"/>
+  <path d="M 80,65 C 90,75 98,86 96,90 C 88,90 80,84 76,78 Z" fill="url(#finGrad)" stroke="#0284c7" stroke-width="1.5"/>
+
+  <!-- Rocket Main Fuselage -->
+  <path d="M 60,12 
+           C 76,26 82,54 78,88 
+           L 42,88 
+           C 38,54 44,26 60,12 Z" 
+        fill="url(#rocketBody)" 
+        stroke="#96003e" 
+        stroke-width="2.5" 
+        stroke-linejoin="round"/>
+
+  <!-- Nosecone Tip Accent -->
+  <path d="M 60,12 C 67,19 70,28 71,32 L 49,32 C 50,28 53,19 60,12 Z" fill="#ffd233"/>
+
+  <!-- Specular Reflection Stripe -->
+  <path d="M 48,22 C 45,35 44,52 46,75" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- Round Porthole Window -->
+  <circle cx="60" cy="52" r="16" fill="#04233a" stroke="#ffd233" stroke-width="3"/>
+  <circle cx="60" cy="52" r="13" fill="#38bdf8"/>
+
+  <!-- Kawaii Face inside the Porthole! -->
+  <ellipse cx="56" cy="52" rx="2.5" ry="3.5" fill="#04233a"/>
+  <circle cx="55.2" cy="51" r="1" fill="#ffffff"/>
+  <ellipse cx="64" cy="52" rx="2.5" ry="3.5" fill="#04233a"/>
+  <circle cx="63.2" cy="51" r="1" fill="#ffffff"/>
+  <!-- Rosy cheeks -->
+  <circle cx="53" cy="55" r="1.5" fill="#ff7694"/>
+  <circle cx="67" cy="55" r="1.5" fill="#ff7694"/>
+  <!-- Smile -->
+  <path d="M 58 55 Q 60 58 62 55" fill="none" stroke="#04233a" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Rocket Thruster Nozzle -->
+  <rect x="50" y="88" width="20" height="4" rx="2" fill="#475569"/>
+</svg>

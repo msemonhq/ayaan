@@ -8,6 +8,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="description" content="Ayaan - Supercharged Antigravity Space Memory Game for Young Astronauts">
   <title>Ayaan - Antigravity Space Memory</title>
+  <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+  <link rel="apple-touch-icon" href="assets/icon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
@@ -22,7 +24,8 @@
     <header class="hud-header">
       <div class="hud-left">
         <div class="avatar-badge" title="Astronaut Ayaan">
-          <span class="avatar-icon">🧑‍🚀</span>
+          <img src="assets/images/avatars/astronaut_ayaan.svg" alt="Astronaut Ayaan" class="avatar-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+          <span class="avatar-icon" style="display: none;">🧑‍🚀</span>
           <span class="player-name">Ayaan</span>
         </div>
         <div class="star-bank-badge" title="Total Cosmic Stars Collected">
@@ -58,6 +61,10 @@
         <!-- Galaxy Map / Home Button -->
         <button id="homeBtn" class="hud-btn" aria-label="Galaxy Map" title="Galaxy Map">
           <span id="homeIcon">🗺️</span>
+        </button>
+        <!-- Voice Companion Toggle -->
+        <button id="voiceToggleBtn" class="hud-btn" aria-label="Toggle Spoken Voice" title="Voice Companion">
+          <span id="voiceIcon">🗣️</span>
         </button>
         <!-- Sound Mute / Unmute Toggle -->
         <button id="soundToggleBtn" class="hud-btn" aria-label="Toggle Sound" title="Sound Toggle">
@@ -131,7 +138,10 @@
   <!-- Level Up / Victory Celebration Modal -->
   <div class="modal-backdrop hidden" id="celebrationModal">
     <div class="modal-card celebration-card">
-      <div class="celebration-badge">🏆</div>
+      <div class="celebration-badge-container">
+        <div id="celebrationLottie" class="lottie-badge"></div>
+        <div class="celebration-badge fallback-badge">🏆</div>
+      </div>
       <h2 class="modal-title" id="celebrationTitle">Super Space Maestro!</h2>
       <p class="modal-subtitle" id="celebrationMessage">Ayaan played the cosmic melody perfectly!</p>
       
@@ -156,7 +166,8 @@
   <div class="modal-backdrop hidden" id="badgeModal">
     <div class="modal-card badges-card">
       <div class="badge-modal-header">
-        <span class="badge-modal-icon">🎖️</span>
+        <div id="badgeModalLottie" class="lottie-badge-header"></div>
+        <span class="badge-modal-icon fallback-badge">🎖️</span>
         <h2 class="modal-title">Ayaan's Space Trophies</h2>
         <p class="modal-subtitle">Badges unlocked by Super Astronaut Ayaan:</p>
       </div>
@@ -174,7 +185,10 @@
   <!-- Star Rush Summary Modal -->
   <div class="modal-backdrop hidden" id="starRushEndModal">
     <div class="modal-card celebration-card">
-      <div class="celebration-badge">🌟</div>
+      <div class="celebration-badge-container">
+        <div id="starRushLottie" class="lottie-badge"></div>
+        <div class="celebration-badge fallback-badge">🌟</div>
+      </div>
       <h2 class="modal-title">Star Rush Complete!</h2>
       <p class="modal-subtitle">Ayaan popped <span id="starRushPoppedCount" style="color: #ffd233; font-weight: 700;">0</span> cosmic stars!</p>
       
@@ -195,6 +209,14 @@
     </div>
   </div>
 
+  <!-- Full-screen Rocket Launch Transition Overlay -->
+  <div id="rocketLaunchOverlay" class="launch-overlay hidden">
+    <div id="rocketLaunchLottie" class="launch-lottie"></div>
+    <div class="launch-title">🚀 BLAST OFF! 🚀</div>
+  </div>
+
+  <!-- Offline Lottie Vector Animation Engine -->
+  <script src="assets/vendor/lottie.min.js"></script>
   <!-- Script logic -->
   <script src="script.js"></script>
 </body>

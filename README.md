@@ -1,54 +1,16 @@
-# Ayaan - Supercharged Antigravity Space Memory Game 🚀🪐
+# Ayaan - Supercharged Antigravity Space Memory Game (V2.0) 🚀🪐
 
-An accessible, zero-gravity mobile spatial memory game engineered specifically for **Ayaan** (a 6-year-old child), focused on developing **working memory**, **visuospatial sequencing**, and **auditory-motor coordination** through high-frequency positive reinforcement and zero-friction play.
-
----
-
-## 🧠 Cognitive Neuroscience Principles (Tailored for Ayaan)
-
-1. **Working Memory & Chunking Capacity**:
-   - For a 6-year-old child, Miller-Cowan working memory spans are typically 3 to 4 chunks ($K \approx 3–4$).
-   - Progressive Orbits gently scale from **Orbit 1 (3 items, 3 notes)** up to **Orbit 6 (6 items, 6 notes)**.
-   - Immediate visual cues (glowing auras) paired with musical pentatonic notes support multi-modal sensory binding in the prefrontal cortex.
-
-2. **Zero Reading Barrier (Pre-Reader Friendly)**:
-   - Everything is communicated intuitively through visual sparkles, glowing orbits, and musical chimes. No complex text instructions to decipher.
-
-3. **Pure Single-Tap Motor Flow (Zero Drag Friction)**:
-   - Extra-large $\ge 88\text{px} \times 88\text{px}$ touch targets.
-   - Eliminates cumbersome screen dragging in favor of responsive, rhythmic, single-tap interaction.
-
-4. **Multi-Instrument Auditory Dopamine**:
-   - Ayaan can switch between 3 joyful instruments:
-     - 🔔 **Crystal Bells** (sparkling, glassy xylophone tones)
-     - 🎹 **Cosmic Piano** (warm, deep acoustic tones)
-     - 🚀 **Space Synth** (playful sci-fi space beeps)
-
-5. **Dopamine Regulation & Growth-Mindset Feedback**:
-   - **Zero failure states**: No harsh buzzers, red penalty screens, or score loss.
-   - If an incorrect tap occurs, a warm low harmonic chime plays, the object wobbles gently, and the melody automatically replays with encouraging guidance: *"Almost there! Let's listen together again!"*.
-   - **Replay Hint Cue (👀)**: Ayaan can watch the melody demonstrated again anytime.
+An accessible, zero-gravity mobile spatial memory game engineered specifically for **Ayaan** (a 6-year-old child), focused on developing **working memory**, **visuospatial sequencing**, and **auditory-motor coordination** through high-frequency positive reinforcement, spoken companion guidance, and zero-friction play.
 
 ---
 
-## 🌟 Supercharged Features
+## 🌟 What's New in V2.0 (Supercharged Multisensory Engine)
 
-### 1. 🪐 Progressive Cosmic Orbits
-- **Orbit 1: Starlight Cradle ⭐** — 3 stationary floating items, 3-note melody.
-- **Orbit 2: Planet Walk 🪐** — 4 gently drifting items, 4-note melody.
-- **Orbit 3: Asteroid Symphony ☄️** — 4 drifting items with zero-g rebounds, 4-note melody.
-- **Orbit 4: Crystal Galaxy 💎** — 5 drifting items, 5-note melody.
-- **Orbit 5: Rocket Launch 🚀** — 5 drifting items with rebounds, 5-note melody.
-- **Orbit 6: Supernova Universe 👑** — 6 drifting items, 6-note grand melody.
-
-### 2. ✨ Star Rush Bonus Round (Pure Sensory Joy)
-- Pop drifting golden stars, comets, and cosmic gems in zero gravity!
-- Every single pop plays a crisp musical note, showers rainbow stardust, and adds bonus stars to Ayaan's bank.
-- 12 seconds of pure reward with zero pressure.
-
-### 3. 🎖️ Astronaut Badges & Trophy Case
-- Unlockable badges for milestones (e.g. *Cadet Launch*, *Melody Maestro*, *Star Hunter*, *Star Popper*, *Galaxy Legend*).
-- Unlocks trigger a royal fanfare chime and confetti celebration.
+- 🗣️ **Spoken Companion Voiceovers**: Warm, joyful spoken voice prompts ("Ready, Super Ayaan?", "Watch the glowing melody!", "Your turn!") eliminate reading friction.
+- 🎶 **Studio Acoustic Multi-Sampled Instruments**: 24 pentatonic harmonic notes across Crystal Bells, Warm Grand Piano, and Acoustic Kalimba with Web Audio `AudioBuffer` preloading.
+- 🎬 **60–120 FPS Lottie Vector Celebrations**: Full-screen Rocket Blast Off transition, Astronaut celebration dance, and Trophy unlock modal animations running 100% offline.
+- 🎨 **Bespoke Illustrated SVGs & Brand-New Game Icon**: High-DPI celestial bodies, Astronaut Ayaan HUD avatar, 6 Trophy Badges, and a gorgeous 3D-styled kawaii app launcher icon.
+- 📳 **Multisensory Native Haptics**: `@capacitor/haptics` synchronized physical feedback for note taps, bubble pops, and fanfare rewards.
 
 ---
 
@@ -58,15 +20,24 @@ An accessible, zero-gravity mobile spatial memory game engineered specifically f
 Ayaan/
 ├── .github/
 │   └── workflows/
-│       └── build-apk.yml       # GitHub Actions workflow for automated Android APK builds
-├── www/                        # Production web application assets
+│       └── build-apk.yml       # Automated Android APK builds via GitHub Actions
+├── scripts/                    # Reproducible asset generation scripts
+│   ├── generate_voices.ps1     # Windows SAPI voice synthesizer
+│   ├── generate_sfx.py         # Acoustic bubble pop & fanfare generator
+│   ├── generate_instruments.py # 24 pentatonic multi-sampled instrument notes
+│   └── generate_lottie_assets.py # Vector Lottie JSON animation generator
+├── www/                        # Production web application assets (2.69 MB total)
 │   ├── index.html              # Core game viewport, Galaxy Map & HUD markup
 │   ├── style.css               # Mobile-first CSS3 styles, safe-area insets & zero-g animations
-│   ├── script.js               # Supercharged physics engine, multi-pack audio & state loop
+│   ├── script.js               # Physics engine, multi-pack audio, Lottie & haptics loop
 │   └── assets/
-│       └── icon.svg            # High-resolution cosmic vector app icon
+│       ├── icon.svg            # High-resolution cosmic vector app icon
+│       ├── audio/              # Spoken voices, tactile pops, and instrument notes
+│       ├── images/             # Celestial SVGs, avatars, and trophy badges
+│       ├── lottie/             # 60fps vector animations (blast off, dance, trophy)
+│       └── vendor/             # Offline Lottie animation player
 ├── capacitor.config.json       # Mobile wrapper configuration (Android)
-├── package.json                # Dependencies & Capacitor build scripts
+├── package.json                # Dependencies & Capacitor build scripts (v2.0.0)
 ├── .gitignore                  # Git ignore rules for Node & Android Gradle builds
 ├── index.html                  # Root entry point redirect
 └── README.md                   # Documentation & Neuroscience architecture

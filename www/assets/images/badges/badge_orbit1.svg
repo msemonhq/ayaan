@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <radialGradient id="badgeGlow1" cx="50%" cy="50%" r="50%">
+      <stop offset="60%" stop-color="#ffd233" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ffd233" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="goldPlate" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff085"/>
+      <stop offset="45%" stop-color="#ffd233"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+    <linearGradient id="wingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Ambient Glow -->
+  <circle cx="60" cy="60" r="54" fill="url(#badgeGlow1)"/>
+
+  <!-- Outer Cadet Wings -->
+  <!-- Left Wing -->
+  <path d="M 50,60 C 35,45 10,48 8,56 C 6,64 25,72 45,68 Z" fill="url(#wingGrad)" stroke="#0284c7" stroke-width="1.5"/>
+  <path d="M 48,66 C 36,54 16,56 14,63 C 12,70 30,76 46,72 Z" fill="url(#wingGrad)" opacity="0.8"/>
+
+  <!-- Right Wing -->
+  <path d="M 70,60 C 85,45 110,48 112,56 C 114,64 95,72 75,68 Z" fill="url(#wingGrad)" stroke="#0284c7" stroke-width="1.5"/>
+  <path d="M 72,66 C 84,54 104,56 106,63 C 108,70 90,76 74,72 Z" fill="url(#wingGrad)" opacity="0.8"/>
+
+  <!-- Outer Medal Disc -->
+  <circle cx="60" cy="60" r="34" fill="url(#goldPlate)" stroke="#78350f" stroke-width="2.5"/>
+  <circle cx="60" cy="60" r="28" fill="#1e1b4b" stroke="#ffd233" stroke-width="1.8"/>
+
+  <!-- Central Cadet Star -->
+  <polygon points="60,38 65,52 79,52 68,61 72,75 60,66 48,75 52,61 41,52 55,52" fill="url(#goldPlate)" stroke="#f59e0b" stroke-width="1.5"/>
+  <circle cx="60" cy="58" r="4" fill="#ffffff"/>
+</svg>
